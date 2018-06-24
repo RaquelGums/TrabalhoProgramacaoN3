@@ -22,6 +22,7 @@
 				<input type="radio" name="ativo" value="sim">Sim
 				<input type="radio" name="ativo" value="nao">Não <br>
 				<input type="submit" value="Cadastrar">
+				<input type="submit" value="Cadastrar2">
 			</fieldset>
 		</form>
 	</head>
