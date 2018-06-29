@@ -1,0 +1,13 @@
+#area
+{
+  position:relative;
+  left:5%;
+  top:29%;
+  width:1200px;
+  height:500px;
+}
+#area #formulario
+{
+  position:absolute;
+  display:block;   
+}

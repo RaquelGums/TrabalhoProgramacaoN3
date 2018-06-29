@@ -1,41 +1,39 @@
 <!DOCTYPE>
 <html>
 	<head>
-		<form action="novoProjeto.php" method="get">
-			<fieldset>
-			<div>
-				Título <br> <input type="text" name="titulo" style="width: 40%"><br>
-				Tecnologias Utilizadas <br> <input type="text" name="tecUtilizadas" style="width: 40%"><br>
-			</div>
-			<div>
-				Resumo <br> <input type="text" name="resumo" style="width: 100%;height: 5%"><br>
-			</div>
-			<div>
-				Status <br> 
-				<input type="radio" name="status" value="inicial">Inicial
-				<input type="radio" name="status" value="andamento">Em andamento
-				<input type="radio" name="status" value="concluido">Concluído<br>
-				Duração  <br> <input type="text" name="duracao"><br>
-			</div>
-			<div>
-				Categoria <br> 
-				<input type="radio" name="categoria" value="institucional">Institucional
-				<input type="radio" name="categoria" value="mercadoTrabalho"> Mercado de Trabalho
-				<input type="radio" name="categoria" value="comunidade"> Comunidade<br>
-				Público Alvo <br> <input type="text" name="publicoAlvo"> <br> 
-			</div>
-			<div>
-				Departamento afetado <br> <input type="text" name="depAfetado"> <br> 
-				Resultados esperados <br> <input type="text" name="resultEsperado"> <br>
-				Área de atuação <br> <input type="text" name="areaAtuacao"> <br> 
-			</div>
-				<br> 
-				<input type="submit" value="Cadastrar">
-			
-			</fieldset>
-		</form>
+		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+		<style>
+			body {
+				background-image: url(fundo.jpg);
+			}
+		</style>		
 	</head>
 	<body>
+		<div>
+			<form id="area" action="novoProjeto.php" method="get">
+				<fieldset>
+					<legend>Novo Projeto</legend>
+					<br>Título: <br> <input type="text" name="titulo" style="width: 100%; height: 5%"><br>
+					<br>Tecnologias Utilizadas: <br> <input type="text" name="tecUtilizadas" style="width: 100%; height: 5%"><br>
+					<br>Resumo: <br> <input type="text" name="resumo" style="width: 100%; height: 5%"><br>
+					<br>Status:
+					<input type="radio" name="status" value="inicial">Inicial
+					<input type="radio" name="status" value="andamento">Em andamento
+					<input type="radio" name="status" value="concluido">Concluído<br>
+					<br>Duração: <input type="text" name="duracao"><br>
+					<br>Categoria: 
+					<input type="radio" name="categoria" value="institucional">Institucional
+					<input type="radio" name="categoria" value="mercadoTrabalho"> Mercado de Trabalho
+					<input type="radio" name="categoria" value="comunidade"> Comunidade<br>
+					<br>Público Alvo: <input type="text" name="publicoAlvo" style="width: 25%; height: 5%"> 
+					Departamento afetado:<input type="text" name="depAfetado" style="width: 25%; height: 5%"> <br> 
+					<br>Resultados esperados: <br> <input type="text" name="resultEsperado" style="width: 100%; height: 5%"> <br>
+					<br>Área de atuação: <br> <input type="text" name="areaAtuacao" style="width: 100%; height: 5%"> <br> 
+					<br> 
+					<input type="submit" value="Cadastrar">
+				</fieldset>
+			</form>	
+		</div>
 	<?php
 		if(!empty($_GET)){
 			if(!empty($_GET['titulo'])){
