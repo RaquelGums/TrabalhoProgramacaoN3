@@ -14,7 +14,7 @@
 				<legend>Recuperação de Senha</legend>
 				Email: <input type="text" name="email"><br>
 				<br><input type="submit" value="Recuperar">
-				<button value="cancelar">Cancelar
+				<input type="button" value="cancelar" onClick='location.href="login.php"'>
 			</fieldset>
 		</form>
 	</body>
