@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<div>
-			<form id="area" action="novoConcurso.php" method="get">
+			<form id="area" method="get">
 				<button name="buttonVoltar">Voltar</button>
 				<input type="submit" value="Cadastrar">
 				<button name="buttonCancelar">Cancelar</button>
