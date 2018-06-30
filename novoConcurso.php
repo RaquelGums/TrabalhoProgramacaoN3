@@ -11,6 +11,9 @@
 	<body>
 		<div>
 			<form id="area" action="novoConcurso.php" method="get">
+				<button name="buttonVoltar">Voltar</button>
+				<input type="submit" value="Cadastrar">
+				<button name="buttonCancelar">Cancelar</button>
 				<fieldset>
 					<legend>Novo Concurso</legend>
 					Título: <input type="text" name="titulo" style="width: 100%; height: 5%"><br>
@@ -34,7 +37,7 @@
 					<input type="radio" name="ativo" value="sim">Sim
 					<input type="radio" name="ativo" value="nao">Não <br>
 					<br>
-					<input type="submit" value="Cadastrar">
+					
 				</fieldset>
 			</form>
 		</div>

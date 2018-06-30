@@ -11,26 +11,28 @@
 	<body>
 		<div>
 			<form id="area" action="novoProjeto.php" method="get">
+				<button name="buttonVoltar">Voltar</button>
+				<input type="submit" value="Cadastrar">
+				<button name="buttonCancelar">Cancelar</button>
 				<fieldset>
 					<legend>Novo Projeto</legend>
-					<br>Título: <br> <input type="text" name="titulo" style="width: 100%; height: 5%"><br>
+					Título: <br><input type="text" name="titulo" style="width: 100%; height: 5%"><br>
 					<br>Tecnologias Utilizadas: <br> <input type="text" name="tecUtilizadas" style="width: 100%; height: 5%"><br>
 					<br>Resumo: <br> <input type="text" name="resumo" style="width: 100%; height: 5%"><br>
 					<br>Status:
 					<input type="radio" name="status" value="inicial">Inicial
 					<input type="radio" name="status" value="andamento">Em andamento
 					<input type="radio" name="status" value="concluido">Concluído<br>
-					<br>Duração: <input type="text" name="duracao"><br>
 					<br>Categoria: 
 					<input type="radio" name="categoria" value="institucional">Institucional
 					<input type="radio" name="categoria" value="mercadoTrabalho"> Mercado de Trabalho
 					<input type="radio" name="categoria" value="comunidade"> Comunidade<br>
-					<br>Público Alvo: <input type="text" name="publicoAlvo" style="width: 25%; height: 5%"> 
+					<br>Duração: <input type="text" name="duracao">
+					Público Alvo: <input type="text" name="publicoAlvo" style="width: 25%; height: 5%"> 
 					Departamento afetado:<input type="text" name="depAfetado" style="width: 25%; height: 5%"> <br> 
 					<br>Resultados esperados: <br> <input type="text" name="resultEsperado" style="width: 100%; height: 5%"> <br>
 					<br>Área de atuação: <br> <input type="text" name="areaAtuacao" style="width: 100%; height: 5%"> <br> 
 					<br> 
-					<input type="submit" value="Cadastrar">
 				</fieldset>
 			</form>	
 		</div>
