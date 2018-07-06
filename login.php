@@ -1,5 +1,8 @@
-<!DOCTYPE>
-<?php session_start(); ?>
+<!DOCTYPE> 
+<?php 
+session_start(); 
+if(!empty($_SESSION['email'])){header('location:telaInicial.php');}
+?>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/estilo.css">
@@ -21,7 +24,7 @@
 			if(!empty($_POST['email'])){ $email=$_POST['email'];}
 			if(!empty($_POST['senha'])){ $senha=$_POST['senha'];}
 			// linhas responsáveis em se conectar com o bando de dados.
-			$db= new PDO('mysql:host=localhost;dbname=n3;charset=utf8','root','');
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
 			//$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			//  faz uma pesquisa na tabela de usuarios
 			$r=$db->prepare("SELECT idUsuario FROM usuario WHERE emailUsuario=:email and senhaUsuario=:senha");
@@ -31,18 +34,22 @@
 			// se ela estiver encontrado algum registro vai criar sessão
 			if(!empty($linhas))
 			{	
+				$n=$db->prepare("SELECT nomeUsuario FROM usuario WHERE emailUsuario=:email and senhaUsuario=:senha");
+				$n->execute(array(':email'=>$email,':senha'=>$senha));
+				$linha=$n->fetchAll(PDO::FETCH_NUM);
+				$_SESSION['nome'] = $linha[0][0];
 				$_SESSION['email'] = $email;
 				$_SESSION['senha'] = $senha;
-				header('location:telainicial.php');
+				header('location:telaInicial.php');
 			}
 			else{
     			unset ($_SESSION['email']);
 				unset ($_SESSION['senha']);
 				header('location:login.php');
 			} 
-		}//else {
-			//echo("vazio");
-		///}
+		}else {
+			echo("vazio");
+		}
 	?>
 	</body>
 </html>

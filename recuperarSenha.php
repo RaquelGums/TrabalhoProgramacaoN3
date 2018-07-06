@@ -1,4 +1,8 @@
 <!DOCTYPE>
+<?php 
+session_start(); 
+if(!empty($_SESSION['email'])){header('location:telaInicial.php');}
+?>
 <html>
 	<head>
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
