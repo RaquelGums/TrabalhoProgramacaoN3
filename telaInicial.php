@@ -1,11 +1,7 @@
 <!DOCTYPE>
 <html>
 	<head>
-	<style>
-		body {
-			background-image: url(fundo.jpg);
-		}
-	</style>
+		<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	</head>
 	<body>
 		<table  style="width:80%; border: 2px solid; text-align: center">
