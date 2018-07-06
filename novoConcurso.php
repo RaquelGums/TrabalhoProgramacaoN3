@@ -2,23 +2,15 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/estilo.css">
-	<style>
-		body {
-			background-image: url(fundo.jpg);
-		}
-	</style>
 	</head>
 	<body>
 		<div>
 			<form id="area" method="get">
-				<button name="buttonVoltar">Voltar</button>
-				<input type="submit" value="Cadastrar">
-				<button name="buttonCancelar">Cancelar</button>
 				<fieldset>
 					<legend>Novo Concurso</legend>
-					Título: <input type="text" name="titulo" style="width: 100%; height: 5%"><br>
+					Título: <input type="text" name="titulo" style="width: 93%; height: 5%"><br>
 					<br>
-					Descrição: <input type="text" name="descricao" style="width:100%; height: 8%"> <br>
+					Descrição: <input type="text" name="descricao" style="width:90%; height: 8%"> <br>
 					<br>
 					Data Inicial de Incrições <input type="date" name="dataInscriçãoInicialConcurso">
 					Data Final de Incrições <input type="date" name="dataInscricaoFinalConcurso"><br>
@@ -28,16 +20,16 @@
 					<input type="radio" name="categoria" value="comunidade"> Comunidade
 					<input type="radio" name="categoria" value="mercadoTrabalho"> Mercado de Trabalho<br>
 					<br>
-					Data da Premiação: <input type="date" name="dataPremiacao">
-					Descrição da Premiação: <input type="text" name="descricaoPremiacao" style="width: 62%; height: 5%"> <br>
+					Data da Premiação: <input type="date" name="dataPremiacao"><br>
+					<br>Descrição da Premiação: <input type="text" name="descricaoPremiacao" style="width: 78%; height: 5%"> <br>
 					<br>Tipo de Avaliação: 
 					<input type="radio" name="avaliacao" value="votacao">Votação
 					<input type="radio" name="avaliacao" value="banca"> Banca de Avaliadores <br>
-					<br> Ativo:
-					<input type="radio" name="ativo" value="sim">Sim
-					<input type="radio" name="ativo" value="nao">Não <br>
 					<br>
-					
+					Início das Inscrições: <input type="date" name="dataVotacaoInicial">
+					Fim das Inscrições: <input type="date" name="dataVotacaoFinal"><br>
+					<br><input type="submit" value="Cadastrar">
+					<input type="button" value="Cancelar" onClick='location.href="telaInicial.php"'>
 				</fieldset>
 			</form>
 		</div>

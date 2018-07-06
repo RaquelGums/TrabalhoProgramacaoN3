@@ -1,19 +1,11 @@
 <!DOCTYPE>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="css/estilo.css">
-		<style>
-			body {
-				background-image: url(fundo.jpg);
-			}
-		</style>		
+		<link rel="stylesheet" type="text/css" href="css/estilo.css">		
 	</head>
 	<body>
 		<div>
 			<form id="area" method="get">
-				<button name="buttonVoltar">Voltar</button>
-				<input type="submit" value="Cadastrar">
-				<button name="buttonCancelar">Cancelar</button>
 				<fieldset>
 					<legend>Novo Projeto</legend>
 					Título: <br><input type="text" name="titulo" style="width: 100%; height: 5%"><br>
@@ -28,11 +20,13 @@
 					<input type="radio" name="categoria" value="mercadoTrabalho"> Mercado de Trabalho
 					<input type="radio" name="categoria" value="comunidade"> Comunidade<br>
 					<br>Duração: <input type="text" name="duracao">
-					Público Alvo: <input type="text" name="publicoAlvo" style="width: 25%; height: 5%"> 
-					Departamento afetado:<input type="text" name="depAfetado" style="width: 25%; height: 5%"> <br> 
-					<br>Resultados esperados: <br> <input type="text" name="resultEsperado" style="width: 100%; height: 5%"> <br>
-					<br>Área de atuação: <br> <input type="text" name="areaAtuacao" style="width: 100%; height: 5%"> <br> 
+					Público Alvo: <input type="text" name="publicoAlvo" style="width: 57%; height: 5%"> <br>
+					<br>Departamento afetado:<input type="text" name="depAfetado" style="width: 81%; height: 5%"> <br> 
+					<br>Resultados esperados:<input type="text" name="resultEsperado" style="width: 81%; height: 5%"> <br>
+					<br>Área de atuação:<input type="text" name="areaAtuacao" style="width: 86%; height: 5%"> <br> 
 					<br> 
+					<input type="submit" value="Cadastrar">
+					<input type="button" value="Cancelar" onClick='location.href="telaInicial.php"'>
 				</fieldset>
 			</form>	
 		</div>

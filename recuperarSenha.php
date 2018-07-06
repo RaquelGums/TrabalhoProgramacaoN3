@@ -1,15 +1,13 @@
 <!DOCTYPE>
 <html>
 	<head>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	<style>
-		body {
-			background-image: url(fundo.jpg);
-		}
+
 	</style>
 	</head>
 	<body>
-		<form id="area" method="get">
-				
+		<form id="areaB" method="get">
 			<fieldset>
 				<legend>Recuperação de Senha</legend>
 				Email: <input type="text" name="email"><br>

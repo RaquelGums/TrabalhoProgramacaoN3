@@ -1,16 +1,19 @@
 <!DOCTYPE>
 <?php session_start(); ?>
 <html>
-	<head style="align:center;" >
-    	<form action="login.php" method="post">
-	email: <input type="text" name="email"><br>
-	<br><br>
-	Senha: <input type="password" name="senha"><br>
-	<input type="submit" value="Entrar">
-	<input type="button" value="cadastrar" onClick='location.href="cadastroUsuario.php"'>
-	<input type="button" value="esqueci a senha" onClick='location.href="recuperarSenha.php"'>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <form id="areaB" method="post">
+		<fieldset>
+		<legend>Login do Usuário</legend>
+			Email: <input type="text" name="email"><br>
+			<br>
+			Senha: <input type="password" name="senha"><br>
+			<br><input type="submit" value="Entrar">
+			<input type="button" value="Esqueci a Senha" onClick='location.href="recuperarSenha.php"'>
+			<input type="button" value="Novo Cadastro" onClick='location.href="cadastroUsuario.php"'>
+		</fieldset>
 	</form>
-	
 	</head>
 	<body>
 	<?php
@@ -37,9 +40,9 @@
 				unset ($_SESSION['senha']);
 				header('location:login.php');
 			} 
-		}else {
-			echo("vazio");
-		}
+		}//else {
+			//echo("vazio");
+		///}
 	?>
 	</body>
 </html>

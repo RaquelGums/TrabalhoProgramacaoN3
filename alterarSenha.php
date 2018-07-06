@@ -1,14 +1,10 @@
 <!DOCTYPE>
 <html>
 	<head>
-	<style>
-		body {
-			background-image: url(fundo.jpg);
-		}
-	</style>
+		<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	</head>
 	<body>
-		<form id="area" method="get">			
+		<form id="areaB" method="get">			
 			<fieldset>
 				<legend>Alteração de Senha</legend>
 				Email: <input type="text" name="email"><br>
