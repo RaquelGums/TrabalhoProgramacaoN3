@@ -8,7 +8,7 @@ if(!empty($_SESSION['email'])){header('location:telaInicial.php');}
 		<link rel="stylesheet" type="text/css" href="css/estilo.css">
     <form id="areaB" method="post">
 		<fieldset>
-		<legend>Login do Usuário</legend>
+		<legend style="text-align:left;">Login do Usuário</legend>
 			Email: <input type="text" name="email"><br>
 			<br>
 			Senha: <input type="password" name="senha"><br>
@@ -24,7 +24,7 @@ if(!empty($_SESSION['email'])){header('location:telaInicial.php');}
 			if(!empty($_POST['email'])){ $email=$_POST['email'];}
 			if(!empty($_POST['senha'])){ $senha=$_POST['senha'];}
 			// linhas responsáveis em se conectar com o bando de dados.
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
 			//$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			//  faz uma pesquisa na tabela de usuarios
 			$r=$db->prepare("SELECT idUsuario FROM usuario WHERE emailUsuario=:email and senhaUsuario=:senha");
@@ -47,8 +47,6 @@ if(!empty($_SESSION['email'])){header('location:telaInicial.php');}
 				unset ($_SESSION['senha']);
 				header('location:login.php');
 			} 
-		}else {
-			echo("vazio");
 		}
 	?>
 	</body>

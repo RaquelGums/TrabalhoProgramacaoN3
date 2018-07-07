@@ -13,7 +13,7 @@ if(!empty($_SESSION['email'])){header('location:telaInicial.php');}
 	<body>
 		<form id="areaB" method="get">
 			<fieldset>
-				<legend>Recuperação de Senha</legend>
+				<legend style="text-align:left;">Recuperação de Senha</legend>
 				Email: <input type="text" name="email"><br>
 				<br><input type="submit" value="Recuperar">
 				<input type="button" value="cancelar" onClick='location.href="login.php"'>

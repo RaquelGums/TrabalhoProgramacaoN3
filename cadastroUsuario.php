@@ -26,7 +26,7 @@ if(!empty($_POST['mensagem'])){echo $_POST['mensagem'];}
 		<form id="areaB" method="post">
 				
 			<fieldset>
-				<legend>Novo Usuário</legend>
+				<legend style="text-align:left;">Novo Usuário</legend>
 				Nome: <input type="text" name="nome"><br>
 				<br>Email: <input type="text" name="email"><br>
 				<br>Senha: <input type="password" name="senha"> <br>
@@ -58,7 +58,7 @@ if(!empty($_POST['mensagem'])){echo $_POST['mensagem'];}
 			if(!empty($_POST['siape'])){ $siape=$_POST['siape'];}
 		
 		// linhas responsáveis em se conectar com o bando de dados.
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
 			//$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			if ($tipoUsuario=="1") {
 				$r=$db->prepare("INSERT INTO usuario(nomeUsuario, emailUsuario, senhaUsuario, tipoUsuario, usuarioAtivo, matricula ) 

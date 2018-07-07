@@ -7,15 +7,47 @@ if(empty($_SESSION['email'])){header('location:login.php');}
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/estilo.css">
 		<title>Página Inicial</title>
-		<div>
-			<h2>Olá <?php echo $_SESSION['nome']; ?></h2>
-			<input type="button" value="Sair" onClick='location.href="logoff.php"'>
-		</div>
-		
 
+		<script>
+			function usuario(a){
+			console.log(a);
+				if (a == 1) {
+					location.href="editarPerfil.php";
+				}
+				if (a == 2){
+					location.href="logoff.php";
+				}
+			}
+    		
+		</script>
+		
+		<div style="text-align:right">
+			<select name="select" onchange='usuario(this.value);'>
+				<option name="usuario" selected disabled><?php echo $_SESSION['nome'];?></option> 
+				<option value="1">Editar Perfil</option>
+				<option value="2">Sair</option>
+			</select>
+		</div>
 	</head>
 	<body>
+	<br>
+	<br>	
+		<br>
+		<br>
 		<table  style="width:80%; border: 2px solid; text-align: center">
+		
+		<?php $r=$db->prepare("SELECT * FROM usuario)");
+		$r->execute();
+		$r = $r->fetchAll(PDO::FETCH_NUM);
+
+		
+		
+		
+		
+		
+		
+		
+		?>
 			<caption>Projetos</caption>
 			<tr>
 				<th>Ativo</th>
@@ -24,7 +56,16 @@ if(empty($_SESSION['email'])){header('location:login.php');}
 				<th>Categoria</th>
 				<th>Duração</th>
 				<th>Público Alvo</th>
-			</tr> 
+			</tr>
+			<?php
+				for ($r = 0; $r.lenght; $r++) {
+					echo "<tr>";
+					for ($th = 0; $th.lenght; $th++) {
+						echo "<td>".$r[0]."</td>";
+					}
+				echo "</tr>";
+				}
+			?>
 			<tr>
 				<td>Ativo</td>
 				<td>Título</td>
