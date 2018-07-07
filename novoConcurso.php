@@ -6,6 +6,16 @@ if(empty($_SESSION['email'])){header('location:login.php');}
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+		<script>
+			function ocultar() ///ocultar as caixas de data
+			{
+    			document.getElementById("a").style.display = "none"; 
+			}
+			function exibir()
+			{
+				document.getElementById("a").style.display = "block"; 
+			}
+		</script>
 	</head>
 	<body>
 		<div>
@@ -27,11 +37,15 @@ if(empty($_SESSION['email'])){header('location:login.php');}
 					Data da Premiação: <input type="date" name="dataPremiacao"><br>
 					<br>Descrição da Premiação: <input type="text" name="descricaoPremiacao" style="width: 78%; height: 5%"> <br>
 					<br>Tipo de Avaliação: 
-					<input type="radio" name="avaliacao" value="votacao">Votação
-					<input type="radio" name="avaliacao" value="banca"> Banca de Avaliadores <br>
+					<input type="radio" onclick="exibir();" checked="true" name="avaliacao" value="votacao">Votação
+					<input type="radio" onclick="ocultar();" name="avaliacao" value="banca"> Banca de Avaliadores <br>
 					<br>
+					<div i
+					d="a">
 					Início das Inscrições: <input type="date" name="dataVotacaoInicial">
-					Fim das Inscrições: <input type="date" name="dataVotacaoFinal"><br>
+					Fim das Inscrições: <input type="date" name="dataVotacaoFinal">
+					</div>
+					<br>
 					<br><input type="submit" value="Cadastrar">
 					<input type="button" value="Cancelar" onClick='location.href="telaInicial.php"'>
 				</fieldset>
