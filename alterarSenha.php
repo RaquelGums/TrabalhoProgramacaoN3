@@ -38,7 +38,8 @@ else $usuario = $_SESSION['usuario'];
 			$novaSenha=$_POST['senhaNova'];
 			$novaSenha1=$_POST['senhaNova1'];
 						
-			echo '<script>alert("'.$usuario->alterarSenha($senha, $novaSenha, $novaSenha1).'");</script>';
+			//echo '<script type="text/javascript">alert("'.$usuario->alterarSenha($senha, $novaSenha, $novaSenha1).'");window.location.href= "telaInicial.php"</script>';
+			echo '<script>alert("'.$usuario->alterarSenha($senha, $novaSenha, $novaSenha1).'");</script>'; //chamada do método (seu retorno)
 		}
 		?>
 	</body>

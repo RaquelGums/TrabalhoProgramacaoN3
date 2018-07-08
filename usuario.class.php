@@ -4,9 +4,9 @@
 		private $nome;
 		private $email;
 		private $senha;
-		private $ativo;
+		private $ativo; //atributo
 		
-		function __construct($id, $nome, $email, $senha, $ativo) {
+		function __construct($id, $nome, $email, $senha, $ativo) { //metodo construtor, onde $id e demais são parametros
 			$this->id = $id;
 		    $this->nome=$nome;
 		    $this->email=$email;
@@ -47,15 +47,16 @@
 			$this->ativo = $altera_ativo;
 		}
 		
-		function alterarSenha($senha, $novaSenha, $novaSenha1){		
+		function alterarSenha($senha, $novaSenha, $novaSenha1){	
 			
 			if($senha==$this->senha){
 				if($novaSenha==$novaSenha1){
 					if($senha!=$novaSenha){
 						$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 						$r=$db->prepare("UPDATE usuario SET senha=:senha where id=:id"); 
-						$r->execute(array(':senha'=>$this->getSenha(),
+						$r->execute(array(':senha'=>$novaSenha,
 										':id'=>$this->getId()));
+						$this->setSenha($novaSenha);
 						return "Alterado com sucesso.";
 					}
 					return "A nova senha não pode ser igual a senha atual.";

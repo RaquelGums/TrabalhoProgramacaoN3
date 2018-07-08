@@ -1,4 +1,5 @@
 <?php
+
 	class Projeto{
 		private $id;
 		private $titulo;
@@ -7,52 +8,66 @@
 		private $idStatus;
 		private $duracao;
 		private $idCategoria;
-		private $publicoAlvo;
-		private $departamentoAfetado;
-		private $resultadoEsperado;
-		private $areaAtuacao;	
+		private $idCoordenador;
 		
+		function __construct($id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $idCoordenador) {
+			$this-> id = $id;
+			$this-> titulo = $titulo;
+			$this-> resumo = $resumo;
+			$this-> tecnologiasUtilizadas = $tecnologiasUtilizadas;
+			$this-> idStatus = $idStatus;
+			$this-> duracao = $duracao;
+			$this-> idCategoria = $idCategoria;
+			$this-> idCoordenador = $idCoordenador;
+		}
+		
+		function setId($id){
+			$this->id = $id;
+		}	
 		function getId(){
 			return $this->id;
+		}
+		function getTitulo(){
+			return $this->titulo;
+		}
+		function setTitulo($novo_titulo){
+			$this->titulo = $novo_titulo;
 		}				
-		function getNome(){
-			return $this->nome;
+		function getResumo(){
+			return $this->resumo;
 		}
-		function setNome($novo_nome){
-			$this->nome = $novo_nome;
+		function setResumo($novoResumo){
+			$this->resumo = $novoResumo;
+		}
+		function getTecnologiasUtilizadas(){
+			return $this->tecnologiasUtilizadas;
+		}
+		function setTecnologiasUtilizadas($novaTecnologiasUtilizadas){
+			$this->tecnologiasUtilizadas = $novaTecnologiasUtilizadas;
 		}				
-		function getEmail(){
-			return $this->email;
+		function getIdStatus(){
+			return $this->idStatus;
 		}
-		function setEmail($novo_email){
-			$this->email = $novo_email;
+		function setIdStatus($alteraStatus){
+			$this->status = $alteraStatus;
 		}
-		function getSenha(){
-			return $this->senha;
+		function getDuracao(){
+			return $this->duracao;
 		}
-		function setSenha($novo_senha){
-			$this->senha = $novo_senha;
-		}				
-		function getTipoUsuario(){
-			return $this->tipoUsuario;
-		}			
-		function getAtivo(){
-			return $this->ativo;
+		function setDuracao($novaDuracao){
+			$this->duracao = $novaDuracao;
 		}
-		function setAtivo($altera_ativo){
-			$this->ativo = $altera_ativo;
+		function getIdCategoria(){
+			return $this->idCategoria;
 		}
-		function getSiape(){
-			return $this->siape;
+		function setIdCategoria($novoIdCategoria){
+			$this->idCategoria = $novoIdCategoria;
 		}
-		function setSiape($novo_siape){
-			$this->siape = $novo_siape;
+		function getIdCoordenador(){
+			return $this->idCoordenador;
 		}
-		function getMatricula(){
-			return $this->matricula;
-		}
-		function setMatricula($novo_matricula){
-			$this->matricula = $novo_matricula;
+		function setIdCcoordenador($novoIdCcoordenador){
+			$this->idCoordenador = $novoIdCoordenador;
 		}	
 	}
 ?>

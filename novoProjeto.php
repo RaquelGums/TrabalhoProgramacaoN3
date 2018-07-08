@@ -1,8 +1,11 @@
 <!DOCTYPE>
-<?php 
-session_start(); 
-if(empty($_SESSION['usuario'])){header('location:login.php');}
+<?php
+include_once 'projetoMercadoDeTrabalho.class.php';	
+include_once 'projetoComunidade.class.php';	
+include_once 'projetoInstitucional.class.php';
 
+if(empty($_SESSION['usuario'])){header('location:login.php');}
+else $usuario = $_SESSION['usuario'];
 ?>
 <html>
 	<head>
@@ -31,7 +34,7 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 	</head>
 	<body>
 		<div>
-			<form id="area" method="get">
+			<form id="area" method="post">
 				<fieldset>
 					<legend>Novo Projeto</legend>
 					Título: <br><input type="text" name="titulo" style="width: 100%; height: 5%"><br>
@@ -69,38 +72,45 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 			</form>	
 		</div>
 	<?php
-		if(!empty($_GET)){
-			if(!empty($_GET['titulo'])){
-			$titulo=$_GET['titulo'];
+		function erro($mensagem)
+			{
+				echo '<script>alert("'.$mensagem.'");</script>';
 			}
-			if(!empty($_GET['resumo'])){
-			$resumo=$_GET['resumo'];
+	
+			if(!empty($_POST)){
+				if(!empty($_GET['titulo'])){$titulo=$_GET['titulo'];} else { erro("Campo titulo é obrigatório!");return;}
+				if(!empty($_GET['resumo'])){$resumo=$_GET['resumo'];} else { erro("Campo resumo é obrigatório!");return;}
+				if(!empty($_GET['tecUtilizadas'])){$tecUtilizadas=$_GET['tecUtilizadas'];} else { erro("Campo tecnologias utilizadas é obrigatório!");return;}
+				if(!empty($_GET['status'])){$status=$_GET['status'];} else { erro("Campo status é obrigatório!");return;}
+				if(!empty($_GET['duracao'])){$duracao=$_GET['duracao'];} else { erro("Campo duração é obrigatório!");return;}
+				if(!empty($_GET['categoria'])){$categoria=$_GET['categoria'];} else { erro("Campo categoria é obrigatório!");return;}
+			
+				if ($categoria=="institucional") {
+					if(!empty($_GET['depAfetado'])){$depAfetado=$_GET['depAfetado'];} else { erro("Campo departamento afetado é obrigatório!");return;}
+					if(!empty($_GET['resultEsperado'])){$resultEsperado=$_GET['resultEsperado'];} else { erro("Campo resultado esperado é obrigatório!");return;}
+					//                                 $id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $departamentoAfetado, $resultadoEsperado, $idCoordenador
+					$projeto = new ProjetoInstitucional (0, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $depAfetado,          $resultEsperado,    $usuario->getId());
+					$projeto->salvar();
+					
+					echo '<script>alert("Cadastrado com Sucesso.");</script>';
+				}
+				else if ($categoria=="mercadoTrabalho"){
+					if(!empty($_GET['areaAtuacao'])){$areaAtuacao=$_GET['areaAtuacao'];} else { erro("Campo area de atuação é obrigatório!");return;}
+					//                                    $id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $areaAtuacao, $idCoordenador
+					$projeto = new ProjetoMercadoDeTrabalho(0, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $areaAtuacao, $usuario->getId());
+					$projeto->salvar();
+					
+					echo '<script>alert("Cadastrado com Sucesso.");</script>';
+				}
+				else if ($categoria=="comunidade"){
+					if(!empty($_GET['publicoAlvo'])){$publicoAlvo=$_GET['publicoAlvo'];} else { erro("Campo publico alvo é obrigatório!");return;}
+					//                                    $id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $publicoAlvo, $idCoordenador
+					$projeto = new ProjetoMercadoDeTrabalho(0, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $publicoAlvo, $usuario->getId());
+					$projeto->salvar();
+					
+					echo '<script>alert("Cadastrado com Sucesso.");</script>';
+				}
 			}
-			if(!empty($_GET['tecUtilizadas'])){
-			$tecUtilizadas=$_GET['tecUtilizadas'];
-			}
-			if(!empty($_GET['status'])){
-			$status=$_GET['status'];
-			}
-			if(!empty($_GET['duracao'])){
-			$duracao=$_GET['duracao'];
-			}
-			if(!empty($_GET['categoria'])){
-			$categoria=$_GET['categoria'];
-			}
-			if(!empty($_GET['publicoAlvo'])){
-			$publicoAlvo=$_GET['publicoAlvo'];
-			}
-			if(!empty($_GET['depAfetado'])){
-			$depAfetado=$_GET['depAfetado'];
-			}
-			if(!empty($_GET['resultEsperado'])){
-			$resultEsperado=$_GET['resultEsperado'];
-			}
-			if(!empty($_GET['areaAtuacao'])){
-			$areaAtuacao=$_GET['areaAtuacao'];
-			}
-		}
 
 	?>
 	</body>

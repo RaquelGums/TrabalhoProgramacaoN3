@@ -25,8 +25,8 @@ if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 	</body>
 	<?php
 		if(!empty($_POST)){		
-			if(!empty($_POST['email'])){ $email=$_POST['email'];}
-			if(!empty($_POST['senha'])){ $senha=$_POST['senha'];}
+			if(!empty($_POST['email'])){$email=$_POST['email'];}
+			if(!empty($_POST['senha'])){$senha=$_POST['senha'];}
 			
 						
 			// linhas responsáveis em se conectar com o bando de dados.
@@ -42,6 +42,7 @@ if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 			{				
 				
 				if( $linhas[0][2] == 1){
+					//($id, $nome, $email, $senha, $ativo, $matricula)
 					$usuario = new Aluno($linhas[0][0], $linhas[0][1], $email, $senha, 1, $linhas[0][3]);
 				}
 				else if( $linhas[0][2] == 2){

@@ -57,23 +57,23 @@ else $usuario = $_SESSION['usuario'];
 				<th>Público Alvo</th>
 			</tr>
 			<?php
-			    
-				//for ($r = 0; $r.lenght; $r++) {
-				//	echo "<tr>";
-				//	for ($th = 0; $th.lenght; $th++) {
-				//		echo "<td>".$r[0]."</td>";
-				//	}
-				//echo "</tr>";
-				//}
+				$projetos=$usuario->getProjetos();
+				
+			    for ($i=0; $i<count($projetos); $i++ ){
+					$projeto = $projetos[$i];
+					echo '<tr>';
+					echo '<td>'.$projeto->getAtivo().'</td>'; //getAtivo () é um método					
+					echo '<td>'.$projeto->getTitulo().'</td>';
+					echo '<td>'.$projeto->getStatus().'</td>';
+					echo '<td>'.$projeto->getCategoria().'</td>';
+					echo '<td>'.$projeto->getDuracao().'</td>';
+					echo '<td>'.$projeto->getPublicoAlvo().'</td>';
+					echo '</tr>';
+				}
+				if(empty($projetos))
+					echo '<tr><td colspan="6">Nenhum projeto cadastrado!<td></tr>';
+				
 			?>
-			<tr>
-				<td>Ativo</td>
-				<td>Título</td>
-				<td>Status</td>
-				<td>Categoria</td>
-				<td>Duração</td>
-				<td>Público Alvo</td>		
-			</tr>
 		</table><input type="button" value="+ Novo Projeto" onClick='location.href="novoProjeto.php"'>
 		<br>
 		<table  style="width:80%; border: 2px solid; text-align: center">

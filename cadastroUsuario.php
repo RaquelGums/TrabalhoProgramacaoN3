@@ -1,9 +1,9 @@
 <!DOCTYPE>
 <?php 
 include_once 'aluno.class.php';	
+include_once 'professor.class.php';
 session_start(); 
 if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
-if(!empty($_POST['mensagem'])){echo $_POST['mensagem'];}
 
 ?>
 <html>
@@ -44,22 +44,20 @@ if(!empty($_POST['mensagem'])){echo $_POST['mensagem'];}
 				<input type="button" value="Cancelar" onClick='location.href="login.php"'>
 			</fieldset>
 		</form>
-		<?php 
-			function erro()
+		<?php //passar por parametro a mensagem
+			function erro($mensagem)
 			{
-				$_POST['mensagem'] = "complete todos os campos!";
-				header('location:cadastroUsuario.php');
+				echo '<script>alert("'.$mensagem.'");</script>';
 			}
 	
 			if(!empty($_POST)){
-				if(!empty($_POST['nome'])){ $nome=$_POST['nome'];} else { erro(); }
-				if(!empty($_POST['email'])){ $email=$_POST['email'];} else { erro(); }
-				if(!empty($_POST['senha'])){ $senha=$_POST['senha'];} else { erro(); }
-				if(!empty($_POST['tipoUsuario'])){ $tipoUsuario=$_POST['tipoUsuario'];} else { erro(); }
-				if(!empty($_POST['matri'])){ $matricula=$_POST['matri'];}
-				if(!empty($_POST['siape'])){ $siape=$_POST['siape'];}
-			
+				if(!empty($_POST['nome'])){ $nome=$_POST['nome'];} else { erro("Campo nome é obrigatório!");return;}
+				if(!empty($_POST['email'])){ $email=$_POST['email'];} else { erro("Campo email é obrigatório!");return;}
+				if(!empty($_POST['senha'])){ $senha=$_POST['senha'];} else { erro("Campo senha é obrigatório!");return;}
+				if(!empty($_POST['tipoUsuario'])){ $tipoUsuario=$_POST['tipoUsuario'];} else { erro("Campo tipo de usuario é obrigatório!");return;}
+				
 				if ($tipoUsuario=="1") {
+					if(!empty($_POST['matri'])){ $matricula=$_POST['matri'];} else { erro("Campo matricula é obrigatório!");return;}
 					$usuario = new Aluno(0, $nome, $email, $senha, true, $matricula);
 					$usuario->salvar();
 					
@@ -68,9 +66,13 @@ if(!empty($_POST['mensagem'])){echo $_POST['mensagem'];}
 					header('location:telaInicial.php');
 				}
 				else{
-					//$r=$db->prepare("INSERT INTO usuario(nome, email, senhaUsuario, tipoUsuario, usuarioAtivo, siape ) 
-					//				VALUES  (:nome, :email, :senha, :tipoUsuario, :ativo, :siape )");
-					//$r->execute(array(':nome'=>$nome,':email'=>$email,':senha'=>$senha,':tipoUsuario'=>$tipoUsuario,':ativo'=>1,':siape'=>$siape));
+					if(!empty($_POST['siape'])){ $siape=$_POST['siape'];} else { erro("Campo siape é obrigatório!");return;}
+					$usuario = new Professor(0, $nome, $email, $senha, true, $siape);
+					$usuario->salvar();
+					
+					echo '<script>alert("Cadastrado com Sucesso.");</script>';				
+					$_SESSION['usuario'] = $usuario;
+					header('location:telaInicial.php');
 				}
 			}
 		?>
