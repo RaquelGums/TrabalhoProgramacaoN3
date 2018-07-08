@@ -1,22 +1,45 @@
 <!DOCTYPE>
 <?php 
+include_once 'aluno.class.php';
+include_once 'professor.class.php';
 session_start(); 
-if(empty($_SESSION['email'])){header('location:login.php');}
+if(empty($_SESSION['usuario'])){header('location:login.php');}
+else $usuario = $_SESSION['usuario'];
 ?>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	</head>
 	<body>
-		<form id="areaB" method="get">			
+		<form id="areaB" method="post">			
 			<fieldset>
 				<legend style="text-align:left;">Alteração de Senha</legend>
-				Email: <input type="text" name="email"><br>
-				<br>Senha Atual: <input type="text" name="senha"><br>
+				Senha Atual: <input type="text" name="senha"><br>
 				<br>Nova Senha: <input type="text" name="senhaNova"><br>
+				<br>Confirmar Senha: <input type="text" name="senhaNova1"><br>
 				<br><input type="submit" value="Alterar">
-				<input type="button" value="cancelar" onClick='location.href="telaInicial.php"'>
+				<input type="button" value="Cancelar" onClick='location.href="telaInicial.php"'>
 			</fieldset>
 		</form>
+		<?php
+		if(!empty($_POST)){		
+		    if(empty($_POST['senha']))
+			{
+				echo '<script>alert("Campo Senha Atual é obrigatório");</script>';
+				return;				
+			}
+			if(empty($_POST['senhaNova']) || empty($_POST['senhaNova1']))
+			{
+				echo '<script>alert("Campos Nova senha e confirmação de senha são obrigatórios");</script>';
+				return;				
+			}			
+			
+			$senha=$_POST['senha'];
+			$novaSenha=$_POST['senhaNova'];
+			$novaSenha1=$_POST['senhaNova1'];
+						
+			echo '<script>alert("'.$usuario->alterarSenha($senha, $novaSenha, $novaSenha1).'");</script>';
+		}
+		?>
 	</body>
 </html>

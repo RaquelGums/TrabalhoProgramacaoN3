@@ -1,7 +1,7 @@
 <!DOCTYPE>
 <?php 
 session_start(); 
-if(!empty($_SESSION['email'])){header('location:telaInicial.php');}
+if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 ?>
 <html>
 	<head>

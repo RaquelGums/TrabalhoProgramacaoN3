@@ -1,7 +1,10 @@
 <!DOCTYPE> 
 <?php 
+include_once 'professor.class.php';	
+include_once 'aluno.class.php';
 session_start(); 
-if(empty($_SESSION['email'])){header('location:login.php');}
+if(empty($_SESSION['usuario'])){header('location:login.php');}
+else $usuario = $_SESSION['usuario'];
 ?>
 <html>
 	<head>
@@ -15,42 +18,38 @@ if(empty($_SESSION['email'])){header('location:login.php');}
 					location.href="editarPerfil.php";
 				}
 				if (a == 2){
+					location.href="alterarSenha.php";
+				}
+				if (a == 3){
 					location.href="logoff.php";
 				}
-			}
-    		
+			}    		
 		</script>
-		
-		<div style="text-align:right">
-			<select name="select" onchange='usuario(this.value);'>
-				<option name="usuario" selected disabled><?php echo $_SESSION['nome'];?></option> 
-				<option value="1">Editar Perfil</option>
-				<option value="2">Sair</option>
-			</select>
-		</div>
 	</head>
 	<body>
-	<br>
-	<br>	
+	    <div style="text-align:right">
+			<select name="select" onchange='usuario(this.value);'>
+				<option name="usuario" selected disabled><?php echo $_SESSION['usuario']->getNome() ?></option> 
+				<option value="1">Editar Perfil</option>
+				<option value="2">Alterar Senha</option>
+				<option value="3">Sair</option>
+			</select>
+		</div>
+	    <br>
+	    <br>	
 		<br>
 		<br>
 		<table  style="width:80%; border: 2px solid; text-align: center">
 		
-		<?php $r=$db->prepare("SELECT * FROM usuario)");
-		$r->execute();
-		$r = $r->fetchAll(PDO::FETCH_NUM);
+		<?php 
+		//$r=$db->prepare("SELECT * FROM usuario)");
+		//$r->execute();
+		//$r = $r->fetchAll(PDO::FETCH_NUM);
 
-		
-		
-		
-		
-		
-		
-		
 		?>
 			<caption>Projetos</caption>
 			<tr>
-				<th>Ativo</th>
+			    <th>Ativo</th>
 				<th>Título</th>
 				<th>Status</th>
 				<th>Categoria</th>
@@ -58,13 +57,14 @@ if(empty($_SESSION['email'])){header('location:login.php');}
 				<th>Público Alvo</th>
 			</tr>
 			<?php
-				for ($r = 0; $r.lenght; $r++) {
-					echo "<tr>";
-					for ($th = 0; $th.lenght; $th++) {
-						echo "<td>".$r[0]."</td>";
-					}
-				echo "</tr>";
-				}
+			    
+				//for ($r = 0; $r.lenght; $r++) {
+				//	echo "<tr>";
+				//	for ($th = 0; $th.lenght; $th++) {
+				//		echo "<td>".$r[0]."</td>";
+				//	}
+				//echo "</tr>";
+				//}
 			?>
 			<tr>
 				<td>Ativo</td>
@@ -96,4 +96,11 @@ if(empty($_SESSION['email'])){header('location:login.php');}
 		</table><input type="button" value="+ Novo Concurso" onClick='location.href="novoConcurso.php"'>
 		
 	</body>
+	<?php 
+	    $usuario = $_SESSION['usuario'];		
+		//$r=$db->prepare("SELECT * FROM usuario)");
+		//$r->execute();
+		//$r = $r->fetchAll(PDO::FETCH_NUM);
+
+		?>
 </html>
