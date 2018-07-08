@@ -6,7 +6,28 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 ?>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="css/estilo.css">		
+		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+		<script>
+			function mudara() ///trocar as caixas de professor e aluno
+			{
+    			document.getElementById("a").style.display = "none"; 
+				document.getElementById("b").style.display = "block"; 
+				document.getElementById("c").style.display = "none"; 
+			}
+			function mudarb() ///trocar as caixas de professor e aluno
+			{
+    			document.getElementById("a").style.display = "block"; 
+				document.getElementById("b").style.display = "none"; 
+				document.getElementById("c").style.display = "none"; 
+			}
+			function mudarc() ///trocar as caixas de professor e aluno
+			{
+    			document.getElementById("a").style.display = "none"; 
+				document.getElementById("b").style.display = "none"; 
+				document.getElementById("c").style.display = "block"; 
+			}
+			mudara();
+		</script>		
 	</head>
 	<body>
 		<div>
@@ -17,22 +38,34 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 					<br>Tecnologias Utilizadas: <br> <input type="text" name="tecUtilizadas" style="width: 100%; height: 5%"><br>
 					<br>Resumo: <br> <input type="text" name="resumo" style="width: 100%; height: 5%"><br>
 					<br>Status:
-					<input type="radio" name="status" value="inicial">Inicial
+					<input type="radio" checked="true" name="status" value="inicial">Inicial
 					<input type="radio" name="status" value="andamento">Em andamento
 					<input type="radio" name="status" value="concluido">Concluído<br>
-					<br>Categoria: 
-					<input type="radio" name="categoria" value="institucional">Institucional
-					<input type="radio" name="categoria" value="mercadoTrabalho"> Mercado de Trabalho
-					<input type="radio" name="categoria" value="comunidade"> Comunidade<br>
 					<br>Duração: <input type="text" name="duracao">
-					Público Alvo: <input type="text" name="publicoAlvo" style="width: 57%; height: 5%"> <br>
-					<br>Departamento afetado:<input type="text" name="depAfetado" style="width: 81%; height: 5%"> <br> 
-					<br>Resultados esperados:<input type="text" name="resultEsperado" style="width: 81%; height: 5%"> <br>
-					<br>Área de atuação:<input type="text" name="areaAtuacao" style="width: 86%; height: 5%"> <br> 
+					<br>
+					<br>Categoria: 
+					<input type="radio" checked="true" onclick="mudara();" name="categoria" value="institucional">Institucional
+					<input type="radio" onclick="mudarc();" name="categoria" value="mercadoTrabalho"> Mercado de Trabalho
+					<input type="radio" onclick="mudarb();" name="categoria" value="comunidade"> Comunidade<br>
+					
+					<br>
+					<span id="a">
+					<br>
+					Público Alvo: <input type="text" name="publicoAlvo" style="width: 87%; height: 5%"> 
+					</span>
+					<br>
+					<span id="b">
+					Departamento afetado:<input type="text" name="depAfetado" style="width: 81%; height: 5%"> <br> 
+					<br>Resultados esperados: <input type="text" name="resultEsperado" style="width: 81%; height: 5%"> <br>
+					</span>
+					<span id="c">
+					Área de atuação:<input type="text" name="areaAtuacao" style="width: 86%; height: 5%"> <br>
+					</span>
 					<br> 
 					<input type="submit" value="Cadastrar">
 					<input type="button" value="Cancelar" onClick='location.href="telaInicial.php"'>
 				</fieldset>
+				<script>mudara();</script>
 			</form>	
 		</div>
 	<?php
