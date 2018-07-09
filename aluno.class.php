@@ -73,13 +73,13 @@
 			for($i=0; $i < count($linhas) ; $i++){
 				//                      $id,         $titulo,       $resumo,      $tecnologiasUtilizadas, $idStatus,    $duracao,     $idCategoria, $publicoAlvo, $departamentoAfetado, $resultadoEsperado, $areaAtuacao,  $idCoordenador
 				$projeto = new Projeto ($linhas[$i][0],$linhas[$i][1],$linhas[$i][2],$linhas[$i][3],          $linhas[$i][4],$linhas[$i][5],$linhas[$i][6],$linhas[$i][7],$linhas[$i][8],        $linhas[$i][9],      $linhas[$i][10],$linhas[$i][11]);
-				$array[i]=$projeto; 
+				$array[$i]=$projeto; 
 			}
 			return $array;
 		}
 		
 		function getMatricula(){
-			return $this->matricula;
+			return $this->s;
 		}				
 		function setMatricula($matricula){
 			$this->matricula = $matricula;

@@ -22,7 +22,7 @@ else $usuario = $_SESSION['usuario'];
 				<br/>
 				<br/>				
 				<?php 
-				    if ($usuario instanceof Aluno){
+				    if ($usuario instanceof Aluno){ //usuario é uma instancia de Aluno
 						echo 'Numero da Matrícula: <input type="text" name="matri" value="'.$usuario->getMatricula().'">';				
 					}
 					else if ($usuario instanceof Professor){

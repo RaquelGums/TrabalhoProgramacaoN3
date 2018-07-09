@@ -1,11 +1,23 @@
 <!DOCTYPE>
 <?php
+include_once 'aluno.class.php';
 include_once 'projetoMercadoDeTrabalho.class.php';	
 include_once 'projetoComunidade.class.php';	
 include_once 'projetoInstitucional.class.php';
-
-if(empty($_SESSION['usuario'])){header('location:login.php');}
+include_once 'projeto.class.php';
+session_start(); 
+if(empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 else $usuario = $_SESSION['usuario'];
+
+if(!Empty($_GET['id'])){
+    $id = $_GET['id'];	
+    $projeto = Projeto::GetProjetoById($id);	
+}
+else{
+	$id=0;
+}
+
+
 ?>
 <html>
 	<head>
@@ -37,14 +49,14 @@ else $usuario = $_SESSION['usuario'];
 			<form id="area" method="post">
 				<fieldset>
 					<legend>Novo Projeto</legend>
-					Título: <br><input type="text" name="titulo" style="width: 100%; height: 5%"><br>
-					<br>Tecnologias Utilizadas: <br> <input type="text" name="tecUtilizadas" style="width: 100%; height: 5%"><br>
-					<br>Resumo: <br> <input type="text" name="resumo" style="width: 100%; height: 5%"><br>
+					Título: <br><input type="text" name="titulo" style="width: 100%; height: 5%" value="<?php if(!empty($projeto)) echo $projeto->getTitulo(); ?>"><br>
+					<br>Tecnologias Utilizadas: <br> <input type="text" name="tecUtilizadas" style="width: 100%; height: 5%" value="<?php if(!empty($projeto)) echo $projeto->getTecnologiasUtilizadas(); ?>"><br>
+					<br>Resumo: <br> <input type="text" name="resumo" style="width: 100%; height: 5%" value="<?php if(!empty($projeto)) echo $projeto->getResumo(); ?>"><br>
 					<br>Status:
-					<input type="radio" checked="true" name="status" value="inicial">Inicial
-					<input type="radio" name="status" value="andamento">Em andamento
-					<input type="radio" name="status" value="concluido">Concluído<br>
-					<br>Duração: <input type="text" name="duracao">
+					<input type="radio" checked="true" name="status" value="1">Inicial
+					<input type="radio" name="status" value="2">Em andamento
+					<input type="radio" name="status" value="3">Concluído<br>
+					<br>Duração: <input type="text" name="duracao" value="<?php if(!empty($projeto)) echo $projeto->getDuracao(); ?>">
 					<br>
 					<br>Categoria: 
 					<input type="radio" checked="true" onclick="mudara();" name="categoria" value="institucional">Institucional
@@ -54,15 +66,15 @@ else $usuario = $_SESSION['usuario'];
 					<br>
 					<span id="a">
 					<br>
-					Público Alvo: <input type="text" name="publicoAlvo" style="width: 87%; height: 5%"> 
+					Público Alvo: <input type="text" name="publicoAlvo" style="width: 87%; height: 5%" value="<?php if(!empty($projeto) && $projeto instanceof ProjetoComunidade) echo $projeto->getPublicoAlvo(); ?>" > <br>
 					</span>
 					<br>
 					<span id="b">
-					Departamento afetado:<input type="text" name="depAfetado" style="width: 81%; height: 5%"> <br> 
-					<br>Resultados esperados: <input type="text" name="resultEsperado" style="width: 81%; height: 5%"> <br>
+					Departamento afetado:<input type="text" name="depAfetado" style="width: 81%; height: 5%" value="<?php if(!empty($projeto) && $projeto instanceof ProjetoInstitucional) echo $projeto->getDepartamentoAfetado(); ?>"> <br> 
+					<br>Resultados esperados: <input type="text" name="resultEsperado" style="width: 81%; height: 5%" value="<?php if(!empty($projeto) && $projeto instanceof ProjetoInstitucional) echo $projeto->getResultadoEsperado(); ?>"> <br>
 					</span>
 					<span id="c">
-					Área de atuação:<input type="text" name="areaAtuacao" style="width: 86%; height: 5%"> <br>
+					Área de atuação:<input type="text" name="areaAtuacao" style="width: 86%; height: 5%" value="<?php if(!empty($projeto) && $projeto instanceof ProjetoMercadoDeTrabalho) echo $projeto->getAreaAtuacao(); ?>"> <br>
 					</span>
 					<br> 
 					<input type="submit" value="Cadastrar">
@@ -78,34 +90,35 @@ else $usuario = $_SESSION['usuario'];
 			}
 	
 			if(!empty($_POST)){
-				if(!empty($_GET['titulo'])){$titulo=$_GET['titulo'];} else { erro("Campo titulo é obrigatório!");return;}
-				if(!empty($_GET['resumo'])){$resumo=$_GET['resumo'];} else { erro("Campo resumo é obrigatório!");return;}
-				if(!empty($_GET['tecUtilizadas'])){$tecUtilizadas=$_GET['tecUtilizadas'];} else { erro("Campo tecnologias utilizadas é obrigatório!");return;}
-				if(!empty($_GET['status'])){$status=$_GET['status'];} else { erro("Campo status é obrigatório!");return;}
-				if(!empty($_GET['duracao'])){$duracao=$_GET['duracao'];} else { erro("Campo duração é obrigatório!");return;}
-				if(!empty($_GET['categoria'])){$categoria=$_GET['categoria'];} else { erro("Campo categoria é obrigatório!");return;}
-			
+				if(!empty($_POST['titulo'])){$titulo=$_POST['titulo'];} else { erro("Campo titulo é obrigatório!");return;}
+				if(!empty($_POST['resumo'])){$resumo=$_POST['resumo'];} else { erro("Campo resumo é obrigatório!");return;}
+				if(!empty($_POST['tecUtilizadas'])){$tecUtilizadas=$_POST['tecUtilizadas'];} else { erro("Campo tecnologias utilizadas é obrigatório!");return;}
+				if(!empty($_POST['status'])){$status=$_POST['status'];} else { erro("Campo status é obrigatório!");return;}
+				if(!empty($_POST['duracao'])){$duracao=$_POST['duracao'];} else { erro("Campo duração é obrigatório!");return;}
+				if(!empty($_POST['categoria'])){$categoria=$_POST['categoria'];} else { erro("Campo categoria é obrigatório!");return;}
+				
 				if ($categoria=="institucional") {
-					if(!empty($_GET['depAfetado'])){$depAfetado=$_GET['depAfetado'];} else { erro("Campo departamento afetado é obrigatório!");return;}
-					if(!empty($_GET['resultEsperado'])){$resultEsperado=$_GET['resultEsperado'];} else { erro("Campo resultado esperado é obrigatório!");return;}
+					if(!empty($_POST['depAfetado'])){$depAfetado=$_POST['depAfetado'];} else { erro("Campo departamento afetado é obrigatório!");return;}
+					if(!empty($_POST['resultEsperado'])){$resultEsperado=$_POST['resultEsperado'];} else { erro("Campo resultado esperado é obrigatório!");return;}
+					//criando um objeto Projeto
 					//                                 $id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $departamentoAfetado, $resultadoEsperado, $idCoordenador
-					$projeto = new ProjetoInstitucional (0, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $depAfetado,          $resultEsperado,    $usuario->getId());
-					$projeto->salvar();
+					$projeto = new ProjetoInstitucional ($id, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $depAfetado,          $resultEsperado,    $usuario->getId());
+					$projeto->salvar(); //salvando o objeto no banco de dados 
 					
 					echo '<script>alert("Cadastrado com Sucesso.");</script>';
 				}
 				else if ($categoria=="mercadoTrabalho"){
-					if(!empty($_GET['areaAtuacao'])){$areaAtuacao=$_GET['areaAtuacao'];} else { erro("Campo area de atuação é obrigatório!");return;}
+					if(!empty($_POST['areaAtuacao'])){$areaAtuacao=$_POST['areaAtuacao'];} else { erro("Campo area de atuação é obrigatório!");return;}
 					//                                    $id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $areaAtuacao, $idCoordenador
-					$projeto = new ProjetoMercadoDeTrabalho(0, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $areaAtuacao, $usuario->getId());
+					$projeto = new ProjetoMercadoDeTrabalho($id, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $areaAtuacao, $usuario->getId());
 					$projeto->salvar();
 					
 					echo '<script>alert("Cadastrado com Sucesso.");</script>';
 				}
 				else if ($categoria=="comunidade"){
-					if(!empty($_GET['publicoAlvo'])){$publicoAlvo=$_GET['publicoAlvo'];} else { erro("Campo publico alvo é obrigatório!");return;}
+					if(!empty($_POST['publicoAlvo'])){$publicoAlvo=$_POST['publicoAlvo'];} else { erro("Campo publico alvo é obrigatório!");return;}
 					//                                    $id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $publicoAlvo, $idCoordenador
-					$projeto = new ProjetoMercadoDeTrabalho(0, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $publicoAlvo, $usuario->getId());
+					$projeto = new ProjetoComunidade($id, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $publicoAlvo, $usuario->getId());
 					$projeto->salvar();
 					
 					echo '<script>alert("Cadastrado com Sucesso.");</script>';

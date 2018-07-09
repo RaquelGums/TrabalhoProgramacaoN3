@@ -30,16 +30,24 @@ include_once 'projeto.class.php';
 			    $this->setId($db->lastInsertId());
 			}
 			else {
-				$r=$db->prepare("UPDATE projeto SET titulo=:titulo, resumo=:resumo, tecnologiasUtilizadas=:tecnologiasUtilizadas, idStatus=:idStatus, duracao=:duracao, idCategoria=:idCategoria, departamentoAfetado=:departamentoAfetado, resultadoEsperado=:resultadoEsperado where id=:id"); 
+				$r=$db->prepare("UPDATE projeto SET titulo=:titulo
+												  , resumo=:resumo
+												  , tecnologiasUtilizadas=:tecnologiasUtilizadas
+												  , idStatus=:idStatus
+												  , duracao=:duracao
+												  , idCategoria=:idCategoria
+												  , departamentoAfetado=:departamentoAfetado
+												  , resultadoEsperado=:resultadoEsperado 
+												  where id=:id"); 
 		        $r->execute(array(':titulo'=>$this->getTitulo(),
 			                      ':resumo'=>$this->getResumo(),
 			    				  ':tecnologiasUtilizadas'=>$this->getTecnologiasUtilizadas(),
-			    				  ':idStatus'=>$this->getIdStatus(),
+			    				  ':idStatus'=>$this->getStatus()->getId(),
 			    				  ':duracao'=>$this->getDuracao(),
 			    				  ':idCategoria'=>1,
 								  ':departamentoAfetado'=>$this->getDepartamentoAfetado(),
 								  ':resultadoEsperado'=>$this->getResultadoEsperado(),
-								  ':idCoordenador'=>$this->getIdCoordenador()));
+								  ':id'=>$this->getId()));
 			}
 		}
 		function getDepartamentoAfetado(){

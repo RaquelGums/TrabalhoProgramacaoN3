@@ -49,32 +49,34 @@ else $usuario = $_SESSION['usuario'];
 		?>
 			<caption>Projetos</caption>
 			<tr>
-			    <th>Ativo</th>
 				<th>Título</th>
+				<th>Descrição</th>
 				<th>Status</th>
 				<th>Categoria</th>
 				<th>Duração</th>
-				<th>Público Alvo</th>
+				<th></th>
 			</tr>
 			<?php
 				$projetos=$usuario->getProjetos();
 				
 			    for ($i=0; $i<count($projetos); $i++ ){
 					$projeto = $projetos[$i];
-					echo '<tr>';
-					echo '<td>'.$projeto->getAtivo().'</td>'; //getAtivo () é um método					
-					echo '<td>'.$projeto->getTitulo().'</td>';
-					echo '<td>'.$projeto->getStatus().'</td>';
-					echo '<td>'.$projeto->getCategoria().'</td>';
+					echo '<tr>';				
+					echo '<td>'.$projeto->getTitulo().'</td>';//getTitulo () é um método
+					echo '<td>'.$projeto->getResumo().'</td>';
+					echo '<td>'.$projeto->getStatus()->getDescricao().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto
+					echo '<td>'.$projeto->getCategoria()->getDescricao().'</td>';
 					echo '<td>'.$projeto->getDuracao().'</td>';
-					echo '<td>'.$projeto->getPublicoAlvo().'</td>';
+					echo "<td><a href='novoProjeto.php?id=".$projeto->getId()."'>Editar</a></td>";
 					echo '</tr>';
+					//$usuario->salvar();
 				}
 				if(empty($projetos))
 					echo '<tr><td colspan="6">Nenhum projeto cadastrado!<td></tr>';
 				
 			?>
-		</table><input type="button" value="+ Novo Projeto" onClick='location.href="novoProjeto.php"'>
+		</table>
+		<input type="button" value="+ Novo Projeto" onClick='location.href="novoProjeto.php"'>
 		<br>
 		<table  style="width:80%; border: 2px solid; text-align: center">
 			<caption>Concursos</caption>
