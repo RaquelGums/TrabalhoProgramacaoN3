@@ -79,7 +79,7 @@
 		}
 		
 		function getMatricula(){
-			return $this->s;
+			return $this->matricula;
 		}				
 		function setMatricula($matricula){
 			$this->matricula = $matricula;
