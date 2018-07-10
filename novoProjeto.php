@@ -74,11 +74,39 @@ else{
 					<br>Resultados esperados: <input type="text" name="resultEsperado" style="width: 81%; height: 5%" value="<?php if(!empty($projeto) && $projeto instanceof ProjetoInstitucional) echo $projeto->getResultadoEsperado(); ?>"> <br>
 					</span>
 					<span id="c">
-					Área de atuação:<input type="text" name="areaAtuacao" style="width: 86%; height: 5%" value="<?php if(!empty($projeto) && $projeto instanceof ProjetoMercadoDeTrabalho) echo $projeto->getAreaAtuacao(); ?>"> <br>
+					<br>Área de atuação:<input type="text" name="areaAtuacao" style="width: 86%; height: 5%" value="<?php if(!empty($projeto) && $projeto instanceof ProjetoMercadoDeTrabalho) echo $projeto->getAreaAtuacao(); ?>"> <br>
 					</span>
 					<br> 
-					<input type="submit" value="Cadastrar">
+					<input type="submit" value="Salvar">
 					<input type="button" value="Cancelar" onClick='location.href="telaInicial.php"'>
+					
+					<table  style="width:80%; border: 2px solid; text-align: center">
+						<caption>Comentários</caption>
+						<tr>
+							<th>Descrição</th>
+							<th>Data</th>
+							<th>Usuario</th>
+						</tr> 
+						<?php
+							$comentario=$projeto->getComentarios();
+							
+							for ($i=0; $i<count($comentario); $i++ ){
+								$comentario = $comentario[$i];
+								echo '<tr>';				
+								echo '<td>'.$comentario->getDescricao().'</td>';//getTitulo () é um método
+								echo '<td>'.$comentario->getDate().'</td>';
+								echo '<td>'.$comentario->getIdUsuario().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto	
+								echo "<td><a href='resposta.php?id=".$projeto->getId()."'>Responder</a></td>";
+								echo '</tr>';
+								//$usuario->salvar();
+							}
+							if(empty($projetos))
+								echo '<tr><td colspan="6">Nenhum comentario cadastrado!<td></tr>';
+							
+						?>
+					</table>
+					
+					
 				</fieldset>
 				<script>mudara();</script>
 			</form>	
@@ -105,7 +133,7 @@ else{
 					$projeto = new ProjetoInstitucional ($id, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $depAfetado,          $resultEsperado,    $usuario->getId());
 					$projeto->salvar(); //salvando o objeto no banco de dados 
 					
-					echo '<script>alert("Cadastrado com Sucesso.");</script>';
+					echo '<script>alert("Salvo com Sucesso.");</script>';
 				}
 				else if ($categoria=="mercadoTrabalho"){
 					if(!empty($_POST['areaAtuacao'])){$areaAtuacao=$_POST['areaAtuacao'];} else { erro("Campo area de atuação é obrigatório!");return;}
@@ -113,7 +141,7 @@ else{
 					$projeto = new ProjetoMercadoDeTrabalho($id, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $areaAtuacao, $usuario->getId());
 					$projeto->salvar();
 					
-					echo '<script>alert("Cadastrado com Sucesso.");</script>';
+					echo '<script>alert("Salvo com Sucesso.");</script>';
 				}
 				else if ($categoria=="comunidade"){
 					if(!empty($_POST['publicoAlvo'])){$publicoAlvo=$_POST['publicoAlvo'];} else { erro("Campo publico alvo é obrigatório!");return;}
@@ -121,7 +149,7 @@ else{
 					$projeto = new ProjetoComunidade($id, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $publicoAlvo, $usuario->getId());
 					$projeto->salvar();
 					
-					echo '<script>alert("Cadastrado com Sucesso.");</script>';
+					echo '<script>alert("Salvo com Sucesso.");</script>';
 				}
 			}
 

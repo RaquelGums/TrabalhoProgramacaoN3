@@ -10,8 +10,7 @@ class ProjetoMercadoDeTrabalho extends Projeto{
 	}
 	
 	function salvar(){		
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
-		
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 		if ($this->getId()==0){
 		    $r=$db->prepare("INSERT INTO projeto(titulo, resumo, tecnologiasUtilizadas, idStatus, duracao, idCategoria, areaAtuacao, idCoordenador) 
 		    					VALUES  (:titulo, :resumo, :tecnologiasUtilizadas, :idStatus, :duracao, :idCategoria, :areaAtuacao, :idCoordenador )");

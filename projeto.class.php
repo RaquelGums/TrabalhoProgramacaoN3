@@ -2,6 +2,9 @@
 include_once 'status.class.php';
 include_once 'categoria.class.php';
 include_once 'projetoInstitucional.class.php';
+include_once 'projetoMercadoDeTrabalho.class.php';
+include_once 'projetoComunidade.class.php';
+include_once 'comentario.class.php';
 
 
 class Projeto{
@@ -13,6 +16,7 @@ class Projeto{
 	private $duracao;
 	private $categoria;
 	private $idCoordenador;
+	private $comentarios;
 	
 	function __construct($id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $idCoordenador) {
 		$this-> id = $id;
@@ -23,7 +27,23 @@ class Projeto{
 		$this-> duracao = $duracao;
 		$this-> categoria = new Categoria($idCategoria);
 		$this-> idCoordenador = $idCoordenador;
-	}
+		
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); //conexao com banco
+			//  faz uma pesquisa na tabela de projeto
+			$r=$db->prepare("select * from comentario c
+							 inner join projeto p on p.id = c.idProjeto where c.idProjeto = :idProjeto"); //prepara o comando 
+			$r->execute(array(':idProjeto'=>$this->getId())); //substitui as variaveis (:) do comando e executa
+			$linhas=$r->fetchAll(PDO::FETCH_NUM); //fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
+			
+			//if(empty($linhas)){return Array(0)}
+			
+			$this->comentarios = array(); //o this vai ser usado para acessar atributos e metodos da classe, dentro do arquivo da classe
+			for($i=0; $i < count($linhas) ; $i++){
+				//                            $id,           $idProjeto,    $descricao,    $data,         $idUsuario
+				$comentario = new Comentario ($linhas[$i][0],$linhas[$i][1],$linhas[$i][2],$linhas[$i][3],$linhas[$i][4]);
+				$this->comentarios[$i]=$comentario;
+			}
+	}	
 	
 	public static function GetProjetoById($id){
 		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
@@ -100,6 +120,12 @@ class Projeto{
 	}
 	function setIdCcoordenador($novoIdCcoordenador){
 		$this->idCoordenador = $novoIdCoordenador;
-	}	
+	}
+	function getComentarios(){
+		return $this->comentarios;
+	}
+	function setComentarios($novoComentarios){
+		$this->comentarios = $novoComentarios;
+	}
 }
 ?>

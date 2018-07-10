@@ -40,11 +40,10 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 					<input type="radio" onclick="exibir();" checked="true" name="avaliacao" value="votacao">Votação
 					<input type="radio" onclick="ocultar();" name="avaliacao" value="banca"> Banca de Avaliadores <br>
 					<br>
-					<div i
-					d="a">
+					<span id="a">
 					Início das Inscrições: <input type="date" name="dataVotacaoInicial">
 					Fim das Inscrições: <input type="date" name="dataVotacaoFinal">
-					</div>
+					</span>
 					<br>
 					<br><input type="submit" value="Cadastrar">
 					<input type="button" value="Cancelar" onClick='location.href="telaInicial.php"'>
@@ -55,33 +54,15 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 		
 	<?php
 		if(!empty($_GET)){
-			if(!empty($_GET['titulo'])){
-			$titulo=$_GET['titulo'];
-			}
-			if(!empty($_GET['descricao'])){
-			$descricao=$_GET['descricao'];
-			}
-			if(!empty($_GET['dataInscriçãoInicialConcurso'])){
-			$dataInscriçãoInicialConcurso=$_GET['dataInscriçãoInicialConcurso'];
-			}
-			if(!empty($_GET['dataInscricaoFinalConcurso'])){
-			$dataInscricaoFinalConcurso=$_GET['dataInscricaoFinalConcurso'];
-			}
-			if(!empty($_GET['categoria'])){
-			$categoria=$_GET['categoria'];
-			}
-			if(!empty($_GET['dataPremiacao'])){
-			$dataPremiacao=$_GET['dataPremiacao'];
-			}
-			if(!empty($_GET['descricaoPremiacao'])){
-			$descricaoPremiacao=$_GET['descricaoPremiacao'];
-			}
-			if(!empty($_GET['avaliacao'])){
-			$avaliacao=$_GET['avaliacao'];
-			}
-			if(!empty($_GET['ativo'])){
-			$ativo=$_GET['ativo'];
-			}
+			if(!empty($_GET['titulo'])){$titulo=$_GET['titulo'];}
+			if(!empty($_GET['descricao'])){$descricao=$_GET['descricao'];}
+			if(!empty($_GET['dataInscriçãoInicialConcurso'])){$dataInscriçãoInicialConcurso=$_GET['dataInscriçãoInicialConcurso'];}
+			if(!empty($_GET['dataInscricaoFinalConcurso'])){$dataInscricaoFinalConcurso=$_GET['dataInscricaoFinalConcurso'];}
+			if(!empty($_GET['categoria'])){$categoria=$_GET['categoria'];}
+			if(!empty($_GET['dataPremiacao'])){$dataPremiacao=$_GET['dataPremiacao'];}
+			if(!empty($_GET['descricaoPremiacao'])){$descricaoPremiacao=$_GET['descricaoPremiacao'];}
+			if(!empty($_GET['avaliacao'])){$avaliacao=$_GET['avaliacao'];}
+			if(!empty($_GET['ativo'])){$ativo=$_GET['ativo'];}
 		}
 	?>
 	</body>
