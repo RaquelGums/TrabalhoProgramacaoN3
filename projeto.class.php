@@ -29,49 +29,22 @@ class Projeto{
 		$this-> idCoordenador = $idCoordenador;
 		
 		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); //conexao com banco
-			//  faz uma pesquisa na tabela de projeto
-			$r=$db->prepare("select * from comentario c
-							 inner join projeto p on p.id = c.idProjeto where c.idProjeto = :idProjeto"); //prepara o comando 
-			$r->execute(array(':idProjeto'=>$this->getId())); //substitui as variaveis (:) do comando e executa
-			$linhas=$r->fetchAll(PDO::FETCH_NUM); //fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
-			
-			//if(empty($linhas)){return Array(0)}
-			
-			$this->comentarios = array(); //o this vai ser usado para acessar atributos e metodos da classe, dentro do arquivo da classe
-			for($i=0; $i < count($linhas) ; $i++){
-				//                            $id,           $idProjeto,    $descricao,    $data,         $idUsuario
-				$comentario = new Comentario ($linhas[$i][0],$linhas[$i][1],$linhas[$i][2],$linhas[$i][3],$linhas[$i][4]);
-				$this->comentarios[$i]=$comentario;
-			}
+		//  faz uma pesquisa na tabela de projeto
+		$r=$db->prepare("select * from comentario where idProjeto = :idProjeto"); //prepara o comando 
+		$r->execute(array(':idProjeto'=>$this->getId())); //substitui as variaveis (:) do comando e executa
+		$linhas=$r->fetchAll(PDO::FETCH_NUM); //fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
+		
+		//if(empty($linhas)){return Array(0)}
+		
+		$this->comentarios = array(); //o this vai ser usado para acessar atributos e metodos da classe, dentro do arquivo da classe
+		for($i=0; $i < count($linhas) ; $i++){
+			//                            $id,           $idProjeto,    $descricao,    $data,                       $idUsuario
+			$comentario = new Comentario ($linhas[$i][0],$linhas[$i][1],$linhas[$i][2],new DateTime($linhas[$i][3]),$linhas[$i][4]);
+			$this->comentarios[$i]=$comentario;
+		}
 	}	
 	
-	public static function GetProjetoById($id){
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
-		$r=$db->prepare("SELECT id, titulo, resumo, tecnologiasUtilizadas, idStatus, duracao, idCategoria, publicoAlvo, departamentoAfetado, resultadoEsperado, areaAtuacao, idCoordenador FROM projeto WHERE id=:id");
-		$r->execute(array(':id'=>$id));
-		$linhas=$r->fetchAll(PDO::FETCH_NUM);//fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
-		
-		
-		if(!empty($linhas)){
-			if ($linhas[0][6]==1) {
-				//instanciando um objeto espelho do projeto no banco de dados
-				//instanciando um objeto da classe ProjetoInstitucional
-				//                                   $id,           $titulo,       $resumo,       $tecnologiasUtilizadas, $idStatus,       $duracao,      $idCategoria,    $departamentoAfetado,   $resultadoEsperado, $idCoordenador
-				$projeto = new ProjetoInstitucional ($linhas[0][0], $linhas[0][1], $linhas[0][2], $linhas[0][3],          $linhas[0][4],   $linhas[0][5], $linhas[0][6],   $linhas[0][8],          $linhas[0][9],      $linhas[0][11]);
-			}
-			else if ($linhas[0][6]==2) {
-				//instanciando um objeto da classe ProjetoMercadoDeTrabalho
-				//                                      $id,           $titulo,       $resumo,       $tecnologiasUtilizadas, $idStatus,       $duracao,      $idCategoria,  $areaAtuacao,  $idCoordenador
-				$projeto = new ProjetoMercadoDeTrabalho($linhas[0][0], $linhas[0][1], $linhas[0][2], $linhas[0][3],          $linhas[0][4],   $linhas[0][5], $linhas[0][6], $linhas[0][10], $linhas[0][11]);
-			}
-			else if ($linhas[0][6]==3) {
-				//instanciando um objeto da classe ProjetoComunidade
-				//                               $id,           $titulo,       $resumo,       $tecnologiasUtilizadas, $idStatus,       $duracao,      $idCategoria,  $publicoAlvo,  $idCoordenador
-				$projeto = new ProjetoComunidade($linhas[0][0], $linhas[0][1], $linhas[0][2], $linhas[0][3],          $linhas[0][4],   $linhas[0][5], $linhas[0][6], $linhas[0][7], $linhas[0][11]);
-			}
-			return $projeto;
-		}	
-	}
+	
 	
 	function setId($id){
 		$this->id = $id;
@@ -126,6 +99,34 @@ class Projeto{
 	}
 	function setComentarios($novoComentarios){
 		$this->comentarios = $novoComentarios;
+	}
+	
+	public static function GetProjetoById($id){
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
+		$r=$db->prepare("SELECT id, titulo, resumo, tecnologiasUtilizadas, idStatus, duracao, idCategoria, publicoAlvo, departamentoAfetado, resultadoEsperado, areaAtuacao, idCoordenador FROM projeto WHERE id=:id");
+		$r->execute(array(':id'=>$id));
+		$linhas=$r->fetchAll(PDO::FETCH_NUM);//fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
+		
+		
+		if(!empty($linhas)){
+			if ($linhas[0][6]==1) {
+				//instanciando um objeto espelho do projeto no banco de dados
+				//instanciando um objeto da classe ProjetoInstitucional
+				//                                   $id,           $titulo,       $resumo,       $tecnologiasUtilizadas, $idStatus,       $duracao,      $idCategoria,    $departamentoAfetado,   $resultadoEsperado, $idCoordenador
+				$projeto = new ProjetoInstitucional ($linhas[0][0], $linhas[0][1], $linhas[0][2], $linhas[0][3],          $linhas[0][4],   $linhas[0][5], $linhas[0][6],   $linhas[0][8],          $linhas[0][9],      $linhas[0][11]);
+			}
+			else if ($linhas[0][6]==2) {
+				//instanciando um objeto da classe ProjetoMercadoDeTrabalho
+				//                                      $id,           $titulo,       $resumo,       $tecnologiasUtilizadas, $idStatus,       $duracao,      $idCategoria,  $areaAtuacao,  $idCoordenador
+				$projeto = new ProjetoMercadoDeTrabalho($linhas[0][0], $linhas[0][1], $linhas[0][2], $linhas[0][3],          $linhas[0][4],   $linhas[0][5], $linhas[0][6], $linhas[0][10], $linhas[0][11]);
+			}
+			else if ($linhas[0][6]==3) {
+				//instanciando um objeto da classe ProjetoComunidade
+				//                               $id,           $titulo,       $resumo,       $tecnologiasUtilizadas, $idStatus,       $duracao,      $idCategoria,  $publicoAlvo,  $idCoordenador
+				$projeto = new ProjetoComunidade($linhas[0][0], $linhas[0][1], $linhas[0][2], $linhas[0][3],          $linhas[0][4],   $linhas[0][5], $linhas[0][6], $linhas[0][7], $linhas[0][11]);
+			}
+			return $projeto;
+		}	
 	}
 }
 ?>

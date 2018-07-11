@@ -67,7 +67,7 @@ else $usuario = $_SESSION['usuario'];
 					echo '<td>'.$projeto->getStatus()->getDescricao().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto
 					echo '<td>'.$projeto->getCategoria()->getDescricao().'</td>';
 					echo '<td>'.$projeto->getDuracao().'</td>';
-					echo "<td><a href='novoProjeto.php?id=".$projeto->getId()."'>Editar</a></td>";
+					echo "<td><a href='novoProjeto.php?id=".$projeto->getId()."'>Visualizar</a></td>";
 					echo '</tr>';
 					//$usuario->salvar();
 				}
