@@ -91,7 +91,7 @@ else{
 						<option value="0">Selecione</option>
 					<?php
 						$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
-						$equipe
+						//$equipe
 						for ($i=0; $i<count($alunos); $i++ ){
 							$aluno = $alunos[$i];
 							echo '<option value="'.$aluno->getId().'">'.$aluno->getNome().'</option>';
