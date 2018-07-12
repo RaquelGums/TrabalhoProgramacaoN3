@@ -19,8 +19,6 @@ if(!Empty($_GET['id'])){
 else{
 	$id=0;
 }
-
-
 ?>
 <html>
 	<head>
@@ -209,7 +207,34 @@ else{
 			    if(!empty($_POST['status'])){$status=$_POST['status'];} else { erro("Campo status é obrigatório!");return;}
 			    if(!empty($_POST['duracao'])){$duracao=$_POST['duracao'];} else { erro("Campo duração é obrigatório!");return;}
 			    if(!empty($_POST['categoria'])){$categoria=$_POST['categoria'];} else { erro("Campo categoria é obrigatório!");return;}
+				///-------------------------------teste
+				$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
+				$r=$db->prepare("INSERT INTO projeto(titulo, resumo, tecnologiasUtilizadas, idStatus, duracao, idCategoria, publicoAlvo, departamentoAfetado, resultadoEsperado, areaAtuacao, idCoordenador)
+			    					VALUES  (:titulo, :resumo, :tecnologiasUtilizadas, :idStatus, :duracao, :idCategoria, :publicoAlvo, :departamentoAfetado, :resultadoEsperado, :areaAtuacao, :idCoordenador)"); 
 				
+				$r->execute(array(':titulo'=>$titulo,
+			                      ':resumo'=>$resumo,
+			    				  ':tecnologiasUtilizadas'=>$tecUtilizadas,
+			    				  ':idStatus'=>$status,
+								  ':duracao'=>$duracao,
+								  ':idCategoria'=>$categoria,
+			                      ':publicoAlvo'=>1,
+			    				  ':departamentoAfetado'=>1,
+			    				  ':resultadoEsperado'=>1,
+			    				  ':areaAtuacao'=>1,
+								  ':idCoordenador'=>1));
+				echo 'asfafafaasfaafffsafsfaffafafasfafafafafafafafafa';
+				sleep(10);
+
+				
+
+
+
+
+
+
+
+
 				$aluno1 = $_POST['equipeAluno1'];
 				$aluno2 = $_POST['equipeAluno2'];
 				$aluno3 = $_POST['equipeAluno3'];

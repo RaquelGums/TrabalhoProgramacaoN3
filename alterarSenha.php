@@ -39,7 +39,14 @@ else $usuario = $_SESSION['usuario'];
 			$novaSenha1=$_POST['senhaNova1'];
 						
 			//echo '<script type="text/javascript">alert("'.$usuario->alterarSenha($senha, $novaSenha, $novaSenha1).'");window.location.href= "telaInicial.php"</script>';
-			echo '<script>alert("'.$usuario->alterarSenha($senha, $novaSenha, $novaSenha1).'");</script>'; //chamada do método (seu retorno)
+			$resposta = $usuario->alterarSenha($senha, $novaSenha, $novaSenha1);
+			if ($resposta=="Alterado com sucesso.") {
+				echo '<script>alert("'.$resposta.'"); location.href="telaInicial.php"</script>'; //chamada do método (seu retorno)
+			}else {
+				echo '<script>alert("'.$resposta.'");</script>';
+			}
+			
+			
 		}
 		?>
 	</body>

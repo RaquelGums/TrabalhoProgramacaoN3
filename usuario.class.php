@@ -86,7 +86,7 @@ class Usuario{
 	    }
 	}
 	function getConcursos(){
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); //conexao com banco
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); //conexao com banco
 		//  faz uma pesquisa na tabela de concurso
 		$r=$db->prepare("select * from concurso "); //prepara o comando 
 		$r->execute(); //substitui as variaveis (:) do comando e executa
@@ -94,7 +94,7 @@ class Usuario{
 		$array = array();
 		for($i=0; $i < count($linhas) ; $i++){
 			//            0	id 	1titulo 	2descricao 	3dataInscricaoInicial 	4dataInscricaoFinal 	5idCategoria 	6dataPremiacao 	7descricaoPremiacao 	8tipoAvaliacao 	9ativo 	10projetoVencedor
-
+            //$id,$titulo,$resumo,$tecnologiasUtilizadas,$idStatus,$duracao,$idCategoria,$publicoAlvo,$departamentoAfetado,$resultadoEsperado,$areaAtuacao
 			$concurso = new concurso ($linhas[$i][0],$linhas[$i][1],$linhas[$i][2],$linhas[$i][3],$linhas[$i][4],$linhas[$i][5],$linhas[$i][6],$linhas[$i][7],$linhas[$i][8],$linhas[$i][9],$linhas[$i][10]);
 			$array[$i]=$concurso; 
 		}

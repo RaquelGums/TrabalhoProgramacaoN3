@@ -50,7 +50,7 @@ else $usuario = $_SESSION['usuario'];
 						}
 						$usuario->salvar();
 						$_SESSION['usuario'] = $usuario;
-				        header('location:telaInicial.php');
+						echo '<script>alert("Alteração realizada!"); location.href="telaInicial.php"</script>'; 
 						
 					}
 				?>

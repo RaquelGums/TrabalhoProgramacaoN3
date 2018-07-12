@@ -9,7 +9,7 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 		<script>
 			function ocultar() ///ocultar as caixas de data
 			{
-    			document.getElementById("a").style.display = "none"; 
+   			document.getElementById("a").style.display = "none"; 
 			}
 			function exibir()
 			{
@@ -19,7 +19,7 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 	</head>
 	<body>
 		<div>
-			<form id="area" method="get">
+			<form id="area" method="post">
 				<fieldset>
 					<legend>Novo Concurso</legend>
 					Título: <input type="text" name="titulo" style="width: 93%; height: 5%"><br>
@@ -53,17 +53,33 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 		
 		
 	<?php
-		if(!empty($_GET)){
-			if(!empty($_GET['titulo'])){$titulo=$_GET['titulo'];}
-			if(!empty($_GET['descricao'])){$descricao=$_GET['descricao'];}
-			if(!empty($_GET['dataInscriçãoInicialConcurso'])){$dataInscriçãoInicialConcurso=$_GET['dataInscriçãoInicialConcurso'];}
-			if(!empty($_GET['dataInscricaoFinalConcurso'])){$dataInscricaoFinalConcurso=$_GET['dataInscricaoFinalConcurso'];}
-			if(!empty($_GET['categoria'])){$categoria=$_GET['categoria'];}
-			if(!empty($_GET['dataPremiacao'])){$dataPremiacao=$_GET['dataPremiacao'];}
-			if(!empty($_GET['descricaoPremiacao'])){$descricaoPremiacao=$_GET['descricaoPremiacao'];}
-			if(!empty($_GET['avaliacao'])){$avaliacao=$_GET['avaliacao'];}
-			if(!empty($_GET['ativo'])){$ativo=$_GET['ativo'];}
+		if(!empty($_POST)){
+			if(!empty($_POST['titulo'])){$titulo=$_POST['titulo'];}
+			if(!empty($_POST['descricao'])){$descricao=$_POST['descricao'];}
+			if(!empty($_POST['dataInscriçãoInicialConcurso'])){$dataInscriçãoInicialConcurso=$_POST['dataInscriçãoInicialConcurso'];}
+			if(!empty($_POST['dataInscricaoFinalConcurso'])){$dataInscricaoFinalConcurso=$_POST['dataInscricaoFinalConcurso'];}
+			if(!empty($_POST['categoria'])){$categoria=$_POST['categoria'];}
+			if(!empty($_POST['dataPremiacao'])){$dataPremiacao=$_POST['dataPremiacao'];}
+			if(!empty($_POST['descricaoPremiacao'])){$descricaoPremiacao=$_POST['descricaoPremiacao'];}
+			if(!empty($_POST['avaliacao'])){$avaliacao=$_POST['avaliacao'];}
+			if(!empty($_POST['ativo'])){$ativo=$_POST['ativo'];}
 		}
+
+		///-------------------------------teste
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
+		$r=$db->prepare("INSERT INTO concurso(titulo, descricao, dataInscricaoInicial, dataInscricaoFinal, idCategoria, dataPremiacao, descricaoPremiacao, tipoAvaliacao, ativo)
+							VALUES  (:titulo, :descricao, :dataInscricaoInicial, :dataInscricaoFinal, :idCategoria, :dataPremiacao, :descricaoPremiacao, :tipoAvaliacao, :ativo)"); 
+		
+		$r->execute(array(':titulo'=>$titulo,
+						  ':descricao'=>$descricao,
+						  ':dataInscricaoInicial'=>$dataInscriçãoInicialConcurso,
+						  ':dataInscricaoFinal'=>$dataInscricaoFinalConcurso,
+						  ':idCategoria'=>$categoria,
+						  ':dataPremiacao'=>$dataPremiacao,
+						  ':descricaoPremiacao'=>$descricaoPremiacao,
+						  ':tipoAvaliacao'=>$avaliacao,
+						  ':ativo'=>1));
+		sleep(10);
 	?>
 	</body>
 </html>

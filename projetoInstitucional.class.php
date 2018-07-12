@@ -12,7 +12,7 @@ include_once 'projeto.class.php';
 		}
 		
 		function salvar(){		
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
 			
 			if ($this->getId()==0){
 			    $r=$db->prepare("INSERT INTO projeto(titulo, resumo, tecnologiasUtilizadas, idStatus, duracao, idCategoria, departamentoAfetado, resultadoEsperado, idCoordenador) 

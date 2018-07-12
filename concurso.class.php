@@ -22,7 +22,7 @@
 			$this-> categoria = new Categoria($idCategoria);
 			$this-> coordenador = Usuario::getUsuarioById($idCoordenador);
 			
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); //conexao com banco		
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); //conexao com banco		
 			$this->carregaComentarios($db);
 			$this->carregaEquipe($db);
 		}

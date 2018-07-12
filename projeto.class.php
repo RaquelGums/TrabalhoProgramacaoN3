@@ -29,7 +29,7 @@ class Projeto{
 		$this-> categoria = new Categoria($idCategoria);
 		$this-> coordenador = Usuario::getUsuarioById($idCoordenador);
 		
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); //conexao com banco		
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); //conexao com banco		
 		$this->carregaComentarios($db);
 		$this->carregaEquipe($db);
 	}
@@ -64,7 +64,7 @@ class Projeto{
 	}
 	
 	protected function salvaEquipe(){
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); //conexao com banco
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); //conexao com banco
 		$r=$db->prepare("delete from equipeprojeto where idProjeto = :idProjeto");
 		$r->execute(array(':idProjeto'=>$this->getId()));		
 		

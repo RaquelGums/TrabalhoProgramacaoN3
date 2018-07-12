@@ -11,7 +11,7 @@
 		}	
 		
 		function salvar(){		
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
 			
 			if ($this->getId()==0){
 			    $r=$db->prepare("INSERT INTO usuario(nome, email, senha, tipo, ativo, matricula ) 
@@ -35,7 +35,7 @@
 		}
 		
 		public static function recuperarSenha ($email, $matricula){
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
 			//  faz uma pesquisa na tabela de usuarios
 			$r=$db->prepare("SELECT id FROM usuario WHERE email=:email and matricula=:matricula and tipo=1"); //prepara o comando 
 			$r->execute(array(':email'=>$email,':matricula'=>$matricula)); //substitui as variaveis (:) do comando e executa
@@ -59,7 +59,7 @@
 		}
 		
 		function getProjetos(){
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); //conexao com banco
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); //conexao com banco
 			//  faz uma pesquisa na tabela de projeto
 			$r=$db->prepare("select * from projeto where idCoordenador = :idCoordenador 
 			                 union select p.* from projeto p 
