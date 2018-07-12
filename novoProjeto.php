@@ -12,6 +12,9 @@ else $usuario = $_SESSION['usuario'];
 if(!Empty($_GET['id'])){
     $id = $_GET['id'];	
     $projeto = Projeto::GetProjetoById($id);	
+	$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
+	$equipe = $projeto->getEquipe();
+	
 }
 else{
 	$id=0;
@@ -90,37 +93,52 @@ else{
 					<select name="equipeAluno1">
 						<option value="0">Selecione</option>
 					<?php
-						$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
-						//$equipe
+						$alunoId =0;
+						if(count($equipe)>0){
+							$alunoId = $equipe[0]->GetId();
+						}
+						
 						for ($i=0; $i<count($alunos); $i++ ){
 							$aluno = $alunos[$i];
-							echo '<option value="'.$aluno->getId().'">'.$aluno->getNome().'</option>';
+							
+							echo '<option value="'.$aluno->getId().'" '.($aluno->getId()==$alunoId?'selected':'').'>'.$aluno->getNome().'</option>';
 						}
-
 					?>
 					</select>
 					Aluno 2:
 					<select name="equipeAluno2">
 						<option value="0">Selecione</option>
 					<?php
-						$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
+						//$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
+						//$equipe = $projeto->getEquipe();
+						$alunoId =0;
+						if(count($equipe)>1){
+							$alunoId = $equipe[1]->GetId();
+						}
+						
 						for ($i=0; $i<count($alunos); $i++ ){
 							$aluno = $alunos[$i];
-							echo '<option value="'.$aluno->getId().'">'.$aluno->getNome().'</option>';
+							
+							echo '<option value="'.$aluno->getId().'" '.($aluno->getId()==$alunoId?'selected':'').'>'.$aluno->getNome().'</option>';
 						}
-
 					?>
 					</select>
 					Aluno 3:
 					<select name="equipeAluno3">
 						<option value="0">Selecione</option>
 					<?php
-						$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
+						//$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
+						//$equipe = $projeto->getEquipe();
+						$alunoId =0;
+						if(count($equipe)>2){
+							$alunoId = $equipe[2]->GetId();
+						}
+						
 						for ($i=0; $i<count($alunos); $i++ ){
 							$aluno = $alunos[$i];
-							echo '<option value="'.$aluno->getId().'">'.$aluno->getNome().'</option>';
+							
+							echo '<option value="'.$aluno->getId().'" '.($aluno->getId()==$alunoId?'selected':'').'>'.$aluno->getNome().'</option>';
 						}
-
 					?>
 					</select>
 					<br>

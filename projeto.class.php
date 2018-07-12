@@ -55,7 +55,7 @@ class Projeto{
 		
 		$this->equipe = array();
 		for($i=0; $i < count($linhas) ; $i++){
-			$aluno = Usuario::getUsuarioById($linhas[0][0]);
+			$aluno = Usuario::getUsuarioById($linhas[$i][0]);
 			$this->equipe[$i]=$aluno;
 		}
 		//for($i=count($this->equipe); $i < 3 ; $i++){
