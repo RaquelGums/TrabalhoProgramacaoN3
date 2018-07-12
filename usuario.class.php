@@ -78,7 +78,7 @@ class Usuario{
                                     //$id          , $nome        , $email       , $senha       , $ativo      , $matricula				
 	    		$usuario = new Aluno ($linhas[0][0], $linhas[0][1], $linhas[0][2], $linhas[0][3],$linhas[0][5], $linhas[0][7]);
 	    	}
-	    	else if ($linhas[0][6]==2) {				
+	    	else if ($linhas[0][4]==2) {				
                                          //$id         , $nome        , $email       , $senha       , $ativo      , $siape
 	    		$usuario = new Professor ($linhas[0][0], $linhas[0][1], $linhas[0][2], $linhas[0][3],$linhas[0][5], $linhas[0][6]);
 	    	}

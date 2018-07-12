@@ -25,7 +25,7 @@ include_once 'projeto.class.php';
 			    				  ':idCategoria'=>1,
 								  ':departamentoAfetado'=>$this->getDepartamentoAfetado(),
 								  ':resultadoEsperado'=>$this->getResultadoEsperado(),
-								  ':idCoordenador'=>$this->getIdCoordenador()));
+								  ':idCoordenador'=>$this->getCoordenador()->getId()));
 			    				  
 			    $this->setId($db->lastInsertId());
 			}
@@ -49,6 +49,7 @@ include_once 'projeto.class.php';
 								  ':resultadoEsperado'=>$this->getResultadoEsperado(),
 								  ':id'=>$this->getId()));
 			}
+			$this->salvaEquipe();
 		}
 		function getDepartamentoAfetado(){
 			return $this->departamentoAfetado;

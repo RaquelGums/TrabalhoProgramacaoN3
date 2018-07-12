@@ -22,7 +22,7 @@ include_once 'projeto.class.php';
 			    				  ':duracao'=>$this->getDuracao(),
 			    				  ':idCategoria'=>3,
 								  ':publicoAlvo'=>$this->getPublicoAlvo(),
-								  ':idCoordenador'=>$this->getIdCoordenador()));
+								  ':idCoordenador'=>$this->getCoordenador()->getId()));
 			    				  
 			    $this->setId($db->lastInsertId());
 			}
@@ -37,6 +37,7 @@ include_once 'projeto.class.php';
 								  ':publicoAlvo'=>$this->getPublicoAlvo(),
 								  ':id'=>$this->getId()));
 			}
+			$this->salvaEquipe();
 		}
 		function getPublicoAlvo(){
 			return $this->publicoAlvo;

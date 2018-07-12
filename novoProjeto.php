@@ -80,15 +80,59 @@ else{
 					Área de atuação:<input type="text" name="areaAtuacao" style="width: 86%; height: 5%" value="<?php if(!empty($projeto) && $projeto instanceof ProjetoMercadoDeTrabalho) echo $projeto->getAreaAtuacao(); ?>"> <br>
 					<br>
 					</span>
-					 
-					
-					<caption>Comentários</caption>
-					<br>	
-					<input type="text" name="comentario" style="width: 86%; height: 5%"> 
-					<br/>
-					<input type="submit" name="adcionarComentario" value="Novo Comentario">				
+					------------------------------------------------------------------------------------------------------------------------------------------------
 					<br>
-					<table id='Comentarios' style="width:80%; border: 2px solid; text-align: center">						
+					<br>
+					Equipe do Projeto
+					<br>
+					<br>
+					Aluno 1:
+					<select name="equipeAluno1">
+						<option value="0">Selecione</option>
+					<?php
+						$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
+						$equipe
+						for ($i=0; $i<count($alunos); $i++ ){
+							$aluno = $alunos[$i];
+							echo '<option value="'.$aluno->getId().'">'.$aluno->getNome().'</option>';
+						}
+
+					?>
+					</select>
+					Aluno 2:
+					<select name="equipeAluno2">
+						<option value="0">Selecione</option>
+					<?php
+						$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
+						for ($i=0; $i<count($alunos); $i++ ){
+							$aluno = $alunos[$i];
+							echo '<option value="'.$aluno->getId().'">'.$aluno->getNome().'</option>';
+						}
+
+					?>
+					</select>
+					Aluno 3:
+					<select name="equipeAluno3">
+						<option value="0">Selecione</option>
+					<?php
+						$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
+						for ($i=0; $i<count($alunos); $i++ ){
+							$aluno = $alunos[$i];
+							echo '<option value="'.$aluno->getId().'">'.$aluno->getNome().'</option>';
+						}
+
+					?>
+					</select>
+					<br>
+					<br>
+					------------------------------------------------------------------------------------------------------------------------------------------------
+					
+					<br>Comentários:
+					<input type="text" name="comentario" style="width: 88%; height: 5%; align:right"> 
+					<br/>
+					<br><input type="submit" name="adcionarComentario" value="Novo Comentario">				
+					<br>
+					<br><table id='Comentarios' style="width:80%; border: 2px solid; text-align: center; border-collapse: collapse;">						
 						<tr>
 							<th>Descrição</th>
 							<th>Data</th>
@@ -138,10 +182,7 @@ else{
 		
 		if(!empty($_POST)){
 			if(isset($_POST['adcionarComentario'])){
-				//if
 				adicionarComentario();
-				
-				//setcookie("ComentárioAdded","true");
 			}
 			else{
 			    if(!empty($_POST['titulo'])){$titulo=$_POST['titulo'];} else { erro("Campo titulo é obrigatório!");return;}
@@ -150,33 +191,57 @@ else{
 			    if(!empty($_POST['status'])){$status=$_POST['status'];} else { erro("Campo status é obrigatório!");return;}
 			    if(!empty($_POST['duracao'])){$duracao=$_POST['duracao'];} else { erro("Campo duração é obrigatório!");return;}
 			    if(!empty($_POST['categoria'])){$categoria=$_POST['categoria'];} else { erro("Campo categoria é obrigatório!");return;}
-			    
+				
+				$aluno1 = $_POST['equipeAluno1'];
+				$aluno2 = $_POST['equipeAluno2'];
+				$aluno3 = $_POST['equipeAluno3'];
+				
+				if($aluno1>0 && ($aluno1 == $aluno2 || $aluno1 == $aluno3)){erro("Equipe do projeto não pode ter alunos repetidos!");return;}
+				if($aluno2>0 && $aluno2 == $aluno3){erro("Equipe do projeto não pode ter alunos repetidos!");return;}
+								
+				
 			    if ($categoria=="institucional") {
 			    	if(!empty($_POST['depAfetado'])){$depAfetado=$_POST['depAfetado'];} else { erro("Campo departamento afetado é obrigatório!");return;}
 			    	if(!empty($_POST['resultEsperado'])){$resultEsperado=$_POST['resultEsperado'];} else { erro("Campo resultado esperado é obrigatório!");return;}
 			    	//criando um objeto Projeto
 			    	//                                 $id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $departamentoAfetado, $resultadoEsperado, $idCoordenador
-			    	$projeto = new ProjetoInstitucional ($id, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $depAfetado,          $resultEsperado,    $usuario->getId());
-			    	$projeto->salvar(); //salvando o objeto no banco de dados 
-			    	
-			    	echo '<script>alert("Salvo com Sucesso.");</script>';
+			    	$projeto = new ProjetoInstitucional ($id, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $depAfetado,          $resultEsperado,    $usuario->getId());					
 			    }
 			    else if ($categoria=="mercadoTrabalho"){
 			    	if(!empty($_POST['areaAtuacao'])){$areaAtuacao=$_POST['areaAtuacao'];} else { erro("Campo area de atuação é obrigatório!");return;}
 			    	//                                    $id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $areaAtuacao, $idCoordenador
 			    	$projeto = new ProjetoMercadoDeTrabalho($id, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $areaAtuacao, $usuario->getId());
-			    	$projeto->salvar();
-			    	
-			    	echo '<script>alert("Salvo com Sucesso.");</script>';
 			    }
 			    else if ($categoria=="comunidade"){
 			    	if(!empty($_POST['publicoAlvo'])){$publicoAlvo=$_POST['publicoAlvo'];} else { erro("Campo publico alvo é obrigatório!");return;}
 			    	//                                    $id, $titulo, $resumo, $tecnologiasUtilizadas, $idStatus, $duracao, $idCategoria, $publicoAlvo, $idCoordenador
 			    	$projeto = new ProjetoComunidade($id, $titulo, $resumo, $tecUtilizadas,         $status,   $duracao, $categoria,   $publicoAlvo, $usuario->getId());
-			    	$projeto->salvar();
-			    	
-			    	echo '<script>alert("Salvo com Sucesso.");</script>';
 			    }
+				
+				$equipe = array();
+				
+				if($aluno1>0)
+					$equipe[0]= Usuario::getUsuarioById($aluno1);
+				else 
+					$equipe[0]= null;
+				
+				//echo '<script>alert("'.$equipe[0]->getNome().'");</script>';
+				
+				if($aluno2>0)
+					$equipe[1]= Usuario::getUsuarioById($aluno2);
+				else 
+					$equipe[1]= null;
+				
+				
+				if($aluno3>0)
+					$equipe[2]= Usuario::getUsuarioById($aluno3);
+				else 
+					$equipe[2]= null;
+				
+				$projeto->setEquipe($equipe);
+				
+			    $projeto->salvar();
+			    echo '<script>alert("Salvo com Sucesso.");</script>';
 			}
 		}
 

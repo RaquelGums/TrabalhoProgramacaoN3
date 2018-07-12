@@ -21,7 +21,7 @@ class ProjetoMercadoDeTrabalho extends Projeto{
 		    				  ':duracao'=>$this->getDuracao(),
 		    				  ':idCategoria'=>2,
 							  ':areaAtuacao'=>$this->getAreaAtuacao(),
-							  ':idCoordenador'=>$this->getIdCoordenador()));
+							  ':idCoordenador'=>$this->getCoordenador()->getId()));
 		    				  
 		    $this->setId($db->lastInsertId());
 		}
@@ -36,6 +36,7 @@ class ProjetoMercadoDeTrabalho extends Projeto{
 							  ':areaAtuacao'=>$this->getAreaAtuacao(),
 							  ':id'=>$this->getId()));
 		}
+		$this->salvaEquipe();
 	}
 	function getAreaAtuacao(){
 		return $this->areaAtuacao;
