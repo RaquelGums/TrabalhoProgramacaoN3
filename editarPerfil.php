@@ -9,7 +9,7 @@ else $usuario = $_SESSION['usuario'];
 ?>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+		<link rel="stylesheet" type="text/css" href="css/estilo.css"><title>Projetos do ADS</title>
 	</head>
 	<body>
 		<form id="areaB" method="post">			

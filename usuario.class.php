@@ -52,7 +52,7 @@ class Usuario{
 		if($senha==$this->senha){
 			if($novaSenha==$novaSenha1){
 				if($senha!=$novaSenha){
-					$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
+					$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
 					$r=$db->prepare("UPDATE usuario SET senha=:senha where id=:id"); 
 					$r->execute(array(':senha'=>$novaSenha,
 									':id'=>$this->getId()));
@@ -67,7 +67,7 @@ class Usuario{
 	}
 	
 	function getUsuarioById($id){
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
 	    $r=$db->prepare("SELECT id, nome, email, senha, tipo, ativo, siape, matricula FROM usuario WHERE id=:id");
 	    $r->execute(array(':id'=>$id));
 	    $linhas=$r->fetchAll(PDO::FETCH_NUM);//fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
@@ -84,6 +84,21 @@ class Usuario{
 	    	}
 	    	return $usuario;
 	    }
+	}
+	function getConcursos(){
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); //conexao com banco
+		//  faz uma pesquisa na tabela de concurso
+		$r=$db->prepare("select * from concurso "); //prepara o comando 
+		$r->execute(); //substitui as variaveis (:) do comando e executa
+		$linhas=$r->fetchAll(PDO::FETCH_NUM); //fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
+		$array = array();
+		for($i=0; $i < count($linhas) ; $i++){
+			//            0	id 	1titulo 	2descricao 	3dataInscricaoInicial 	4dataInscricaoFinal 	5idCategoria 	6dataPremiacao 	7descricaoPremiacao 	8tipoAvaliacao 	9ativo 	10projetoVencedor
+
+			$concurso = new concurso ($linhas[$i][0],$linhas[$i][1],$linhas[$i][2],$linhas[$i][3],$linhas[$i][4],$linhas[$i][5],$linhas[$i][6],$linhas[$i][7],$linhas[$i][8],$linhas[$i][9],$linhas[$i][10]);
+			$array[$i]=$concurso; 
+		}
+		return $array;
 	}
 }
 ?>

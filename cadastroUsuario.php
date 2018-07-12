@@ -8,7 +8,7 @@ if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 ?>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+		<link rel="stylesheet" type="text/css" href="css/estilo.css"><title>Projetos do ADS</title>
 		<script>
 			function mudarp() ///trocar as caixas de professor e aluno
 			{

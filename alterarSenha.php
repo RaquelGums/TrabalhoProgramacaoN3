@@ -8,7 +8,7 @@ else $usuario = $_SESSION['usuario'];
 ?>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+		<link rel="stylesheet" type="text/css" href="css/estilo.css"><title>Projetos do ADS</title>
 	</head>
 	<body>
 		<form id="areaB" method="post">			
@@ -18,7 +18,7 @@ else $usuario = $_SESSION['usuario'];
 				<br>Nova Senha: <input type="text" name="senhaNova"><br>
 				<br>Confirmar Senha: <input type="text" name="senhaNova1"><br>
 				<br><input type="submit" value="Alterar">
-				<input type="button" value="Cancelar" onClick='location.href="telaInicial.php"'>
+				<input type="button" value="Voltar" onClick='location.href="telaInicial.php"'>
 			</fieldset>
 		</form>
 		<?php

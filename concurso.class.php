@@ -11,7 +11,21 @@
 		private $departamentoAfetado;
 		private $resultadoEsperado;
 		private $areaAtuacao;	
-		
+		//tabela concurso  0id 	1titulo 	2descricao 	3dataInscricaoInicial 	4dataInscricaoFinal 	5idCategoria 	6dataPremiacao 	7descricaoPremiacao 	8tipoAvaliacao 	9ativo 	10projetoVencedor
+		function __construct($id,$titulo,$resumo,$tecnologiasUtilizadas,$idStatus,$duracao,$idCategoria,$publicoAlvo,$departamentoAfetado,$resultadoEsperado,$areaAtuacao) {
+			$this-> id = $id;
+			$this-> titulo = $titulo;
+			$this-> resumo = $resumo;
+			$this-> tecnologiasUtilizadas = $tecnologiasUtilizadas;
+			$this-> status = new Status($idStatus);
+			$this-> duracao = $duracao;
+			$this-> categoria = new Categoria($idCategoria);
+			$this-> coordenador = Usuario::getUsuarioById($idCoordenador);
+			
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); //conexao com banco		
+			$this->carregaComentarios($db);
+			$this->carregaEquipe($db);
+		}
 		function getId(){
 			return $this->id;
 		}				

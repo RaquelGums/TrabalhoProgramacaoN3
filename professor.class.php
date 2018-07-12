@@ -10,7 +10,7 @@
 		
 		
 		function salvar(){		
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
 			if ($this->getId()==0){
 			    $r=$db->prepare("INSERT INTO usuario(nome, email, senha, tipo, ativo, siape ) 
 			    					VALUES  (:nome, :email, :senha, :tipo, :ativo, :siape )");
@@ -34,7 +34,7 @@
 		}
 		
 		public static function recuperarSenha ($email, $siape){
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
 			//  faz uma pesquisa na tabela de usuarios
 			$r=$db->prepare("SELECT id FROM usuario WHERE email=:email and siape=:siape and tipo=2"); //prepara o comando 
 			$r->execute(array(':email'=>$email,':siape'=>$siape)); //substitui as variaveis (:) do comando e executa
@@ -46,7 +46,7 @@
 					$numero = mt_rand(1, 9);
 					$novaSenha = $novaSenha.$numero;
 				}
-				$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
+				$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
 				$r=$db->prepare("UPDATE usuario SET senha=:senha where id=:id"); 
 				$r->execute(array(':senha'=>$novaSenha,
 								':id'=>$linhas[0][0]));			

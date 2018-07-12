@@ -4,7 +4,7 @@ class Status{
 	private $descricao;
 	
 	function __construct ($id){
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
 		$r=$db->prepare("SELECT id, descricao FROM status WHERE id=:id");
 		$r->execute(array(':id'=>$id));
 		$linhas=$r->fetchAll(PDO::FETCH_NUM);//fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
