@@ -35,14 +35,14 @@ class Projeto{
 	}
 	
 	private function carregaComentarios($db){
-		$r=$db->prepare("select * from comentario where idProjeto = :idProjeto"); //prepara o comando 
+		$r=$db->prepare("select * from comentario where idProjeto = :idProjeto and idComentarioPai is null"); //prepara o comando 
 		$r->execute(array(':idProjeto'=>$this->getId())); //substitui as variaveis (:) do comando e executa
 		$linhas=$r->fetchAll(PDO::FETCH_NUM); //fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
 		
 		$this->comentarios = array(); //o this vai ser usado para acessar atributos e metodos da classe, dentro do arquivo da classe
 		for($i=0; $i < count($linhas) ; $i++){
 			//                            $id,           $idProjeto,    $descricao,    $data,                       $idUsuario
-			$comentario = new Comentario ($linhas[$i][0],$linhas[$i][1],$linhas[$i][2],new DateTime($linhas[$i][3]),$linhas[$i][4]);
+			$comentario = new Comentario ($linhas[$i][0],$linhas[$i][1],$linhas[$i][2],new DateTime($linhas[$i][3]),$linhas[$i][4],null);
 			$this->comentarios[$i]=$comentario;
 		}
 	}

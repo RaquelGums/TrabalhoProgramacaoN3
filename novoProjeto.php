@@ -32,7 +32,18 @@ else{
 			if(!empty($_GET['id'])){$projetoId=$_GET['id'];} else { erro("Não é permitido fazer comentários em projetos Novos!");return;}	
 			if(!empty($_POST['comentario'])){$comentario=$_POST['comentario'];} else { erro("Campo Comentário é obrigatório!");return;}			
 			//                            $id,$idProjeto,$descricao ,$data,              $idUsuario
-			$comentario = new Comentario (0  ,$projetoId,$comentario,date('Y-m-d H:i:s'),$_SESSION['usuario']->GetId());
+			$comentario = new Comentario (0  ,$projetoId,$comentario,date('Y-m-d H:i:s'),$_SESSION['usuario']->GetId(),null);
+			$comentario->Salvar();
+			
+			//echo '<script>alert("Comentário Adicionado.");"</script>';
+			header('location:novoProjeto.php?id='.$projetoId.'#Comentarios');
+			
+		}
+
+		function adicionarResposta($projetoId, $comentarioId,$resposta)
+		{	            	
+			//                            $id,$idProjeto,$descricao ,$data,              $idUsuario
+			$comentario = new Comentario (0  ,$projetoId,$resposta,date('Y-m-d H:i:s'),$_SESSION['usuario']->GetId(),$comentarioId);
 			$comentario->Salvar();
 			
 			//echo '<script>alert("Comentário Adicionado.");"</script>';
@@ -45,6 +56,21 @@ else{
 				adicionarComentario();
 			}
 			else{
+				if(!empty($projeto)){
+					$comentarios=$projeto->getComentarios();
+					    			
+					for ($i=0; $i<count($comentarios); $i++ ){
+						$comentario = $comentarios[$i];
+												
+						if(isset($_POST['responder_'.$comentario->getId()])){
+							if(!empty($_POST['comentario_'.$comentario->getId()])){$resposta=$_POST['comentario_'.$comentario->getId()];} else { erro("Preencha o campo resposta!");return;}
+							
+							adicionarResposta($comentario->getIdProjeto(), $comentario->getId(),$resposta);
+							return;
+						}
+					}
+				}
+
 			    if(!empty($_POST['titulo'])){$titulo=$_POST['titulo'];} else { erro("Campo titulo é obrigatório!");return;}
 			    if(!empty($_POST['resumo'])){$resumo=$_POST['resumo'];} else { erro("Campo resumo é obrigatório!");return;}
 			    if(!empty($_POST['tecUtilizadas'])){$tecUtilizadas=$_POST['tecUtilizadas'];} else { erro("Campo tecnologias utilizadas é obrigatório!");return;}
@@ -260,7 +286,6 @@ else{
 					    		<th>Descrição</th>
 					    		<th>Data</th>
 					    		<th>Usuario</th>
-					    		<th></th>
 					    	</tr> 
 					    	<?php
 					    	    if(!Empty($projeto)){
@@ -271,17 +296,16 @@ else{
 					    				echo '<tr>';				
 					    				echo '<td colspan=2>'.$comentario->getDescricao().'</td>';//getTitulo () é um método
 					    				echo '<td>'.$comentario->getData()->format('d-m-Y H:i:s').'</td>';
-					    				echo '<td colspan=2>'.$comentario->getUsuario()->GetNome().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto	
-										echo '</tr>';
+					    				echo '<td>'.$comentario->getUsuario()->GetNome().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto	
+										echo '</tr>';										
 					    				echo '<tr>';				
-					    				echo '<td colspan=4><input type="text" name="comentario'.$comentario->GetId().'" style="width: 100%; height: 5%; align:right"></td>';//getTitulo () é um método
-										echo '<td><input type="submit" name="responder'.$comentario->GetId().'" value="Responder"</td>';
-										//projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto	
+					    				echo '<td colspan=3><input type="text" name="comentario_'.$comentario->GetId().'" style="width: 100%; height: 5%; align:right"></td>';
+										echo '<td><input type="submit" name="responder_'.$comentario->GetId().'" value="Responder"</td>';
 										echo '</tr>';
 										$respostas = $comentario->getRespostas(); 
 										for ($j=0; $j<count($respostas); $j++ ){
 											$resposta = $respostas[$j];											
-											echo '<tr><td></td>';				
+											echo '<tr><td>Resposta:</td>';				
 											echo '<td>'.$resposta->getDescricao().'</td>';//getTitulo () é um método
 											echo '<td>'.$resposta->getData()->format('d-m-Y H:i:s').'</td>';
 											echo '<td>'.$resposta->getUsuario()->GetNome().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto	
