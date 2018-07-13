@@ -39,45 +39,41 @@ else $usuario = $_SESSION['usuario'];
 	    <br>	
 		<br>
 		<br>
-		<table  style="width:80%; border: 2px solid; text-align: center">
-		
-		<?php 
-		//$r=$db->prepare("SELECT * FROM usuario)");
-		//$r->execute();
-		//$r = $r->fetchAll(PDO::FETCH_NUM);
+		<div <?php if($usuario instanceof Aluno){ echo 'style="display:block;"';} else {echo 'style="display:none;"';} ?>>
+			<table  style="width:80%; border: 2px solid; text-align: center">
+	    		<caption>Projetos</caption>
+				<tr>
+					<th>Título</th>
+					<th>Descrição</th>
+					<th>Status</th>
+					<th>Categoria</th>
+					<th>Duração</th>
+					<th></th>
+				</tr>
+				<?php
+				    if($usuario instanceof Aluno){
+						$projetos=$usuario->getProjetos();
 
-		?>
-			<caption>Projetos</caption>
-			<tr>
-				<th>Título</th>
-				<th>Descrição</th>
-				<th>Status</th>
-				<th>Categoria</th>
-				<th>Duração</th>
-				<th></th>
-			</tr>
-			<?php
-				$projetos=$usuario->getProjetos();
-				
-			    for ($i=0; $i<count($projetos); $i++ ){
-					$projeto = $projetos[$i];
-					echo '<tr>';				
-					echo '<td>'.$projeto->getTitulo().'</td>';//getTitulo () é um método
-					echo '<td>'.$projeto->getResumo().'</td>';
-					echo '<td>'.$projeto->getStatus()->getDescricao().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto
-					echo '<td>'.$projeto->getCategoria()->getDescricao().'</td>';
-					echo '<td>'.$projeto->getDuracao().'</td>';
-					echo "<td><a href='novoProjeto.php?id=".$projeto->getId()."'>Visualizar</a></td>";
-					echo '</tr>';
-					//$usuario->salvar();
-				}
-				if(empty($projetos))
-					echo '<tr><td colspan="6">Nenhum projeto cadastrado!<td></tr>';
-				
-			?>
-		</table>
-		<input type="button" value="+ Novo Projeto" onClick='location.href="novoProjeto.php"'>
-		<br>
+					    for ($i=0; $i<count($projetos); $i++ ){
+							$projeto = $projetos[$i];
+							echo '<tr>';				
+							echo '<td>'.$projeto->getTitulo().'</td>';//getTitulo () é um método
+							echo '<td>'.$projeto->getResumo().'</td>';
+							echo '<td>'.$projeto->getStatus()->getDescricao().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto
+							echo '<td>'.$projeto->getCategoria()->getDescricao().'</td>';
+							echo '<td>'.$projeto->getDuracao().'</td>';
+							echo "<td><a href='novoProjeto.php?id=".$projeto->getId()."'>Visualizar</a></td>";
+							echo '</tr>';
+							//$usuario->salvar();
+						}
+						if(empty($projetos))
+							echo '<tr><td colspan="6">Nenhum projeto cadastrado!<td></tr>';
+					}
+				?>
+			</table>
+			<input type="button" value="+ Novo Projeto" onClick='location.href="novoProjeto.php"'>
+			<br>
+		</div>
 		<table  style="width:80%; border: 2px solid; text-align: center">
 			<caption>Concursos</caption>
 			<tr>

@@ -52,7 +52,12 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 		</div>
 		
 		
-	<?php
+	<?php		
+		function erro($mensagem)
+		{
+			echo '<script>alert("'.$mensagem.'");</script>';
+		}
+		
 		if(!empty($_POST)){
 			if(!empty($_POST['titulo'])){$titulo=$_POST['titulo'];} else { erro("Campo titulo é obrigatório!");return;}
 			if(!empty($_POST['descricao'])){$descricao=$_POST['descricao'];} else { erro("Campo descrição é obrigatório!");return;}
