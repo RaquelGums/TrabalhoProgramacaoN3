@@ -64,7 +64,7 @@ else $usuario = $_SESSION['usuario'];
 						if($projeto->getCoordenador()->getId() == $usuario->getId())
 					    	echo "<td><a href='novoProjeto.php?id=".$projeto->getId()."'>Editar</a></td>";
 						else 
-							echo "<td><a href='visualizaProjeto.php?id=".$projeto->getId()."'>Visualizar</a></td>";
+							echo "<td><a href='novoProjeto.php?id=".$projeto->getId()."'>Visualizar</a></td>";
 						echo '</tr>';
 						//$usuario->salvar();
 					}
@@ -75,7 +75,7 @@ else $usuario = $_SESSION['usuario'];
 			<input type="button" <?php if($usuario instanceof Aluno){ echo 'style="display:block;"';} else {echo 'style="display:none;"';} ?> value="+ Novo Projeto" onClick='location.href="novoProjeto.php"'>
 			<br>
 		</div>
-		<div <?php if($usuario instanceof Coordenador){ echo 'style="display:block;"';} else {echo 'style="display:none;"';} ?>>
+		<div>
 			<table  style="width:80%; border: 2px solid; text-align: center">
 				<caption>Concursos</caption>
 				<tr>
@@ -106,7 +106,7 @@ else $usuario = $_SESSION['usuario'];
 					}					
 				?>
 			</table>
-			<input type="button" value="+ Novo Concurso" onClick='location.href="novoConcurso.php"'>
+			<input <?php if($usuario instanceof Coordenador){ echo 'style="display:block;"';} else {echo 'style="display:none;"';} ?> type="button" value="+ Novo Concurso" onClick='location.href="novoConcurso.php"'>
 		</div>
 	</body>
 </html>
