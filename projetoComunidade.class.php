@@ -18,7 +18,7 @@ include_once 'projeto.class.php';
 		        $r->execute(array(':titulo'=>$this->getTitulo(),
 			                      ':resumo'=>$this->getResumo(),
 			    				  ':tecnologiasUtilizadas'=>$this->getTecnologiasUtilizadas(),
-			    				  ':idStatus'=>$this->getIdStatus(),
+			    				  ':idStatus'=>$this->getStatus()->GetId(),
 			    				  ':duracao'=>$this->getDuracao(),
 			    				  ':idCategoria'=>3,
 								  ':publicoAlvo'=>$this->getPublicoAlvo(),

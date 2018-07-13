@@ -6,7 +6,7 @@
 		private $tecnologiasUtilizadas;
 		private $idStatus;
 		private $duracao;
-		private $idCategoria;
+		private $idCategoria;		
 		private $publicoAlvo;
 		private $departamentoAfetado;
 		private $resultadoEsperado;

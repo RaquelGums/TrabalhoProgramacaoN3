@@ -2,6 +2,7 @@
 <?php   
 include_once 'aluno.class.php';
 include_once 'professor.class.php';
+include_once 'coordenador.class.php';
 session_start(); 
 if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 ?>
@@ -47,7 +48,11 @@ if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 				}
 				else if( $linhas[0][2] == 2){
 					$usuario = new Professor($linhas[0][0], $linhas[0][1], $email, $senha, 1, $linhas[0][4]);
-				}				
+				}
+				else{
+					$usuario = new Coordenador($linhas[0][0], $linhas[0][1], $email, $senha, 1);
+				}
+
 				$_SESSION['usuario'] = $usuario;
 				header('location:telaInicial.php');
 			}
