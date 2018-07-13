@@ -16,33 +16,26 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 				document.getElementById("a").style.display = "block"; 
 			}
 
-			function ComparaDatas()
+			function datas()
 			{
 				var data1 = document.getElementById("data1").value;
 				var data2 = document.getElementById("data2").value;
 				var data3 = document.getElementById("data3").value;
 				var data4 = document.getElementById("data4").value;
+
 				var nova_data1 = parseInt(data1.split("/")[2].toString() + data1.split("/")[1].toString() + data1.split("/")[0].toString());
 				var nova_data2 = parseInt(data2.split("/")[2].toString() + data2.split("/")[1].toString() + data2.split("/")[0].toString());
 				var nova_data3 = parseInt(data3.split("/")[2].toString() + data3.split("/")[1].toString() + data3.split("/")[0].toString());
 				var nova_data4 = parseInt(data4.split("/")[2].toString() + data4.split("/")[1].toString() + data4.split("/")[0].toString());
-				 if (nova_data2 > nova_data1) 
-				 {
-					 alert("A data 2 é maior que a data 1.");
-				 }
- 				else if (nova_data1 == nova_data2) 
-				 {
-					 alert("As datas são iguais.");
-				 }
+				 
+				 
+				 if (nova_data2 < nova_data1)      { alert("A Data Inicial de Incrições é maior que a Data Final.");}
 
-				 if (nova_data3 > nova_data4) 
-				 {
-					 alert("A data 3 é maior que a data 4.");
-				 }
- 				else if (nova_data3 == nova_data4) 
-				 {
-					 alert("As datas são iguais.");
-				 }
+ 				else if (nova_data1 == nova_data2) { alert("As datas das Incrições são iguais.");}
+
+				 if (nova_data3 > nova_data4)      { alert("A data de Início das votações é maior que a data final.");}
+
+ 				else if (nova_data3 == nova_data4) { alert("As datas das votações são iguais.");}
 			}
 
 		</script>
@@ -56,8 +49,8 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 					<br>
 					Descrição: <input type="text" name="descricao" style="width:90%; height: 8%"> <br>
 					<br>
-					Data Inicial de Incrições <input type="date" name="dataInscriçãoInicialConcurso">
-					Data Final de Incrições <input type="date" name="dataInscricaoFinalConcurso"><br>
+					Data Inicial de Incrições <input id="data1" type="date" name="dataInscriçãoInicialConcurso">
+					Data Final de Incrições <input id="data2" type="date" name="dataInscricaoFinalConcurso"><br>
 					<br>
 					Categoria: 
 					<input type="radio" checked="true" name="categoria" value="1">Institucional
@@ -71,11 +64,11 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 					<input type="radio" onclick="ocultar();" name="avaliacao" value="banca"> Banca de Avaliadores <br>
 					<br>
 					<span id="a">
-					Início das Inscrições: <input type="date" name="dataVotacaoInicial">
-					Fim das Inscrições: <input type="date" name="dataVotacaoFinal">
+					Início das votações: <input id="data3" type="date" name="dataVotacaoInicial">
+					Fim das votações: <input  id="data4" type="date" name="dataVotacaoFinal">
 					</span>
 					<br>
-					<br><input type="submit" value="Cadastrar">
+					<br><input type="submit" onClick='datas();' value="Cadastrar">
 					<input type="button" value="Cancelar" onClick='location.href="telaInicial.php"'>
 				</fieldset>
 			</form>
