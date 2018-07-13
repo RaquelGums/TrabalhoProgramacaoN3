@@ -85,7 +85,7 @@ class Projeto{
 	}
 	
 	public static function GetProjetoById($id){
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 		$r=$db->prepare("SELECT id, titulo, resumo, tecnologiasUtilizadas, idStatus, duracao, idCategoria, publicoAlvo, departamentoAfetado, resultadoEsperado, areaAtuacao, idCoordenador FROM projeto WHERE id=:id");
 		$r->execute(array(':id'=>$id));
 		$linhas=$r->fetchAll(PDO::FETCH_NUM);//fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta

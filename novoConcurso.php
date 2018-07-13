@@ -63,23 +63,24 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 			if(!empty($_POST['descricaoPremiacao'])){$descricaoPremiacao=$_POST['descricaoPremiacao'];}
 			if(!empty($_POST['avaliacao'])){$avaliacao=$_POST['avaliacao'];}
 			if(!empty($_POST['ativo'])){$ativo=$_POST['ativo'];}
-		}
-
-		///-------------------------------teste
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
-		$r=$db->prepare("INSERT INTO concurso(titulo, descricao, dataInscricaoInicial, dataInscricaoFinal, idCategoria, dataPremiacao, descricaoPremiacao, tipoAvaliacao, ativo)
-							VALUES  (:titulo, :descricao, :dataInscricaoInicial, :dataInscricaoFinal, :idCategoria, :dataPremiacao, :descricaoPremiacao, :tipoAvaliacao, :ativo)"); 
 		
-		$r->execute(array(':titulo'=>$titulo,
-						  ':descricao'=>$descricao,
-						  ':dataInscricaoInicial'=>$dataInscriçãoInicialConcurso,
-						  ':dataInscricaoFinal'=>$dataInscricaoFinalConcurso,
-						  ':idCategoria'=>$categoria,
-						  ':dataPremiacao'=>$dataPremiacao,
-						  ':descricaoPremiacao'=>$descricaoPremiacao,
-						  ':tipoAvaliacao'=>$avaliacao,
-						  ':ativo'=>1));
-		sleep(10);
+
+		    ///-------------------------------teste
+		    $db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
+		    $r=$db->prepare("INSERT INTO concurso(titulo, descricao, dataInscricaoInicial, dataInscricaoFinal, idCategoria, dataPremiacao, descricaoPremiacao, tipoAvaliacao, ativo)
+		    					VALUES  (:titulo, :descricao, :dataInscricaoInicial, :dataInscricaoFinal, :idCategoria, :dataPremiacao, :descricaoPremiacao, :tipoAvaliacao, :ativo)"); 
+		    
+		    $r->execute(array(':titulo'=>$titulo,
+		    				  ':descricao'=>$descricao,
+		    				  ':dataInscricaoInicial'=>$dataInscriçãoInicialConcurso,
+		    				  ':dataInscricaoFinal'=>$dataInscricaoFinalConcurso,
+		    				  ':idCategoria'=>$categoria,
+		    				  ':dataPremiacao'=>$dataPremiacao,
+		    				  ':descricaoPremiacao'=>$descricaoPremiacao,
+		    				  ':tipoAvaliacao'=>$avaliacao,
+		    				  ':ativo'=>1));
+		    //sleep(10);
+		}
 	?>
 	</body>
 </html>

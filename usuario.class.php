@@ -52,7 +52,7 @@ class Usuario{
 		if($senha==$this->senha){
 			if($novaSenha==$novaSenha1){
 				if($senha!=$novaSenha){
-					$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
+					$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 					$r=$db->prepare("UPDATE usuario SET senha=:senha where id=:id"); 
 					$r->execute(array(':senha'=>$novaSenha,
 									':id'=>$this->getId()));
@@ -67,7 +67,7 @@ class Usuario{
 	}
 	
 	function getUsuarioById($id){
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 	    $r=$db->prepare("SELECT id, nome, email, senha, tipo, ativo, siape, matricula FROM usuario WHERE id=:id");
 	    $r->execute(array(':id'=>$id));
 	    $linhas=$r->fetchAll(PDO::FETCH_NUM);//fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta

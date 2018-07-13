@@ -47,7 +47,7 @@
 					$numero = mt_rand(1, 9);
 					$novaSenha = $novaSenha.$numero;
 				}
-				$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
+				$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 				$r=$db->prepare("UPDATE usuario SET senha=:senha where id=:id"); 
 				$r->execute(array(':senha'=>$novaSenha,
 								':id'=>$linhas[0][0]));			
@@ -77,7 +77,7 @@
 		}
 		
 		public static function getAlunosMenosCoordenador ($id){
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 			$r=$db->prepare("SELECT id, nome FROM usuario WHERE id!=:id and ativo=1 and Tipo=1");
 			$r->execute(array(':id'=>$id));
 			$linhas=$r->fetchAll(PDO::FETCH_NUM);

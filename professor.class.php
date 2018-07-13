@@ -46,7 +46,7 @@
 					$numero = mt_rand(1, 9);
 					$novaSenha = $novaSenha.$numero;
 				}
-				$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
+				$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 				$r=$db->prepare("UPDATE usuario SET senha=:senha where id=:id"); 
 				$r->execute(array(':senha'=>$novaSenha,
 								':id'=>$linhas[0][0]));			

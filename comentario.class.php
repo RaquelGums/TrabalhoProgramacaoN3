@@ -17,7 +17,7 @@ class Comentario {
 		$this-> data = $data;
 		$this-> usuario = Usuario::getUsuarioById($idUsuario);
 		
-		// $db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
+		// $db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 		// $r=$db->prepare("SELECT id, descricao FROM comentario WHERE id=:id");
 		// $r->execute(array(':id'=>$id));
 		// $linhas=$r->fetchAll(PDO::FETCH_NUM);//fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
@@ -29,7 +29,7 @@ class Comentario {
 		
 	}
 	function salvar(){		
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 		if ($this->getId()==0){
 			$r=$db->prepare("INSERT INTO comentario(id, idProjeto, descricao, data, idUsuario) 
 								VALUES  (:id, :idProjeto, :descricao, :data, :idUsuario)");
