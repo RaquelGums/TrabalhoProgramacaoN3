@@ -79,7 +79,6 @@ else $usuario = $_SESSION['usuario'];
 			<table  style="width:80%; border: 2px solid; text-align: center">
 				<caption>Concursos</caption>
 				<tr>
-				<?php /// 	titulo 	dataInscricaoInicial+dataInscricaoFinal 	idCategoria  	descricaoPremiacao 	ativo ?>
 					<th>Ativo</th>
 					<th>Título</th>
 					<th>Período de Inscrição</th>
@@ -88,22 +87,23 @@ else $usuario = $_SESSION['usuario'];
 	
 				</tr> 
 				<?php
-					$concursos=$usuario->getConcursos();
-					
-				    for ($i=0; $i<count($concursos); $i++ ){
-						$concurso = $concursos[$i];
-						echo '<tr>';				
-						echo '<td>'.$concurso->getStatus().   '</td>';
-						echo '<td>'.$concurso->getTitulo().   '</td>';
-						echo '<td>'.$concurso->getPeriodo().  '</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto
-						echo '<td>'.$concurso->getCategoria().'</td>';
-						echo '<td>'.$concurso->getPremiacao().'</td>';
-						echo "<td><a href='novoProjeto.php?id=".$projeto->getId()."'>Visualizar</a></td>";
-						echo '</tr>';
-					}
-					if(empty($concursos))
-						echo '<tr><td colspan="6">Nenhum concurso cadastrado!<td></tr>';
-					
+				    if($usuario instanceof Coordenador){
+						$concursos=$usuario->getConcursos();
+						
+					    for ($i=0; $i<count($concursos); $i++ ){
+							$concurso = $concursos[$i];
+							echo '<tr>';				
+							echo '<td>'.$concurso->getStatus().   '</td>';
+							echo '<td>'.$concurso->getTitulo().   '</td>';
+							echo '<td>'.$concurso->getPeriodo().  '</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto
+							echo '<td>'.$concurso->getCategoria().'</td>';
+							echo '<td>'.$concurso->getPremiacao().'</td>';
+							echo "<td><a href='novoProjeto.php?id=".$projeto->getId()."'>Visualizar</a></td>";
+							echo '</tr>';
+						}
+						if(empty($concursos))
+							echo '<tr><td colspan="6">Nenhum concurso cadastrado!<td></tr>';
+					}					
 				?>
 			</table>
 			<input type="button" value="+ Novo Concurso" onClick='location.href="novoConcurso.php"'>
