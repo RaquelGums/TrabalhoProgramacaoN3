@@ -254,11 +254,13 @@ else{
 					    <br/>
 					    <br><input type="submit" name="adcionarComentario" value="Novo Comentario">				
 					    <br>
-					    <br><table id='Comentarios' style="width:80%; border: 2px solid; text-align: center; border-collapse: collapse;">						
+					    <br><table id='Comentarios' style="width:80%; border: 2px solid; text-align: left; border-collapse: collapse;">						
 					    	<tr>
+							    <th></th>
 					    		<th>Descrição</th>
 					    		<th>Data</th>
 					    		<th>Usuario</th>
+					    		<th></th>
 					    	</tr> 
 					    	<?php
 					    	    if(!Empty($projeto)){
@@ -267,12 +269,24 @@ else{
 					    			for ($i=0; $i<count($comentarios); $i++ ){
 					    				$comentario = $comentarios[$i];
 					    				echo '<tr>';				
-					    				echo '<td>'.$comentario->getDescricao().'</td>';//getTitulo () é um método
-					    				//$dataComent = DateTime::createFromFormat('Y/m/d H:i:s', $comentario->getData());
+					    				echo '<td colspan=2>'.$comentario->getDescricao().'</td>';//getTitulo () é um método
 					    				echo '<td>'.$comentario->getData()->format('d-m-Y H:i:s').'</td>';
-					    				echo '<td>'.$comentario->getUsuario()->GetNome().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto	
-					    				echo '</tr>';
-					    				//$usuario->salvar();
+					    				echo '<td colspan=2>'.$comentario->getUsuario()->GetNome().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto	
+										echo '</tr>';
+					    				echo '<tr>';				
+					    				echo '<td colspan=4><input type="text" name="comentario'.$comentario->GetId().'" style="width: 100%; height: 5%; align:right"></td>';//getTitulo () é um método
+										echo '<td><input type="submit" name="responder'.$comentario->GetId().'" value="Responder"</td>';
+										//projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto	
+										echo '</tr>';
+										$respostas = $comentario->getRespostas(); 
+										for ($j=0; $j<count($respostas); $j++ ){
+											$resposta = $respostas[$j];											
+											echo '<tr><td></td>';				
+											echo '<td>'.$resposta->getDescricao().'</td>';//getTitulo () é um método
+											echo '<td>'.$resposta->getData()->format('d-m-Y H:i:s').'</td>';
+											echo '<td>'.$resposta->getUsuario()->GetNome().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto	
+											echo '</tr>';
+										}		
 					    			}
 					    			if(empty($comentarios))
 					    				echo '<tr><td colspan="6">Nenhum comentario cadastrado!<td></tr>';

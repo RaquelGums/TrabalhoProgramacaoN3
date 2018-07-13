@@ -93,7 +93,7 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 		
 
 		 ///-------------------------------teste
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
 			$r=$db->prepare("INSERT INTO concurso(titulo, descricao, dataInscricaoInicial, dataInscricaoFinal, idCategoria, dataPremiacao, descricaoPremiacao, tipoAvaliacao, ativo)
 							VALUES  (:titulo, :descricao, :dataInscricaoInicial, :dataInscricaoFinal, :idCategoria, :dataPremiacao, :descricaoPremiacao, :tipoAvaliacao, :ativo)"); 
 		

@@ -32,7 +32,7 @@ if(!empty($_SESSION['usuario'])){headeer('location:telaInicial.php');}
 			
 						
 			// linhas responsáveis em se conectar com o bando de dados.
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
 			//$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			//  faz uma pesquisa na tabela de usuarios
 			$r=$db->prepare("SELECT id, nome, tipo, matricula, siape FROM usuario WHERE email=:email and senha=:senha");

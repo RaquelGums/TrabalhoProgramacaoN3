@@ -19,7 +19,7 @@ class Resposta{
 	}
 	
 	function salvar(){		
-		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
 		if ($this->getId()==0){
 		    $r=$db->prepare("INSERT INTO resposta(id, idComentario, descricao, idUsuario, data) 
 		    					VALUES  (:id, :idComentario, :descricao, :idUsuario, :data)");

@@ -9,6 +9,7 @@ class Comentario {
 	private $descricao;
 	private $data;
 	private $usuario;
+	private $respostas;
 	
 	function __construct ($id, $idProjeto, $descricao, $data, $idUsuario){
 		$this-> id = $id;
@@ -17,15 +18,18 @@ class Comentario {
 		$this-> data = $data;
 		$this-> usuario = Usuario::getUsuarioById($idUsuario);
 		
-		// $db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
-		// $r=$db->prepare("SELECT id, descricao FROM comentario WHERE id=:id");
-		// $r->execute(array(':id'=>$id));
-		// $linhas=$r->fetchAll(PDO::FETCH_NUM);//fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
 		
-		// if(!empty($linhas)){
-			// $this->id = $linhas[0][0]; //seto o atributo id com o resultado da consulta no banco
-			// $this->descricao = $linhas[0][1]; //seto o atributo descrição com o resultado da consulta no banco
-		// }	
+		$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
+		$r=$db->prepare("SELECT id, idProjeto, descricao, data, idUsuario, idComentarioPai FROM comentario WHERE idComentarioPai=:id");
+		$r->execute(array(':id'=>$id));
+		$linhas=$r->fetchAll(PDO::FETCH_NUM);//fetchAll só existe nos comandos select; $linhas é um array com o resultado da consulta
+		
+		$this->respostas = array(); //o this vai ser usado para acessar atributos e metodos da classe, dentro do arquivo da classe
+		for($i=0; $i < count($linhas) ; $i++){
+			//                            $id,           $idProjeto,    $descricao,    $data,                       $idUsuario
+			$resposta = new Comentario ($linhas[$i][0],$linhas[$i][1],$linhas[$i][2],new DateTime($linhas[$i][3]),$linhas[$i][4]);
+			$this->respostas[$i]=$resposta;
+		}
 		
 	}
 	function salvar(){		
@@ -77,5 +81,13 @@ class Comentario {
 		function setUsuario($usuario){
 			$this->usuario = $usuario;
 		} 	
+	public function getRespostas()
+	{
+		return $this->respostas;
+	}
+	public function setRespostas($respostas)
+	{
+		$this->respostas = $respostas;
+	}
 }
 ?>
