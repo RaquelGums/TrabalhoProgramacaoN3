@@ -1,72 +1,228 @@
 <?php
+include_once 'comentario.class.php';
 	class Concurso{
 		private $id;
 		private $titulo;
-		private $resumo;
-		private $tecnologiasUtilizadas;
-		private $idStatus;
-		private $duracao;
-		private $idCategoria;		
-		private $publicoAlvo;
-		private $departamentoAfetado;
-		private $resultadoEsperado;
-		private $areaAtuacao;	
-		//tabela concurso  0id 	1titulo 	2descricao 	3dataInscricaoInicial 	4dataInscricaoFinal 	5idCategoria 	6dataPremiacao 	7descricaoPremiacao 	8tipoAvaliacao 	9ativo 	10projetoVencedor
-		function __construct($id,$titulo,$resumo,$tecnologiasUtilizadas,$idStatus,$duracao,$idCategoria,$publicoAlvo,$departamentoAfetado,$resultadoEsperado,$areaAtuacao) {
-			$this-> id = $id;
-			$this-> titulo = $titulo;
-			$this-> resumo = $resumo;
-			$this-> tecnologiasUtilizadas = $tecnologiasUtilizadas;
-			$this-> status = new Status($idStatus);
-			$this-> duracao = $duracao;
-			$this-> categoria = new Categoria($idCategoria);
-			$this-> coordenador = Usuario::getUsuarioById($idCoordenador);
-			
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); //conexao com banco		
-			$this->carregaComentarios($db);
-			$this->carregaEquipe($db);
+		private $descricao;
+		private $dataInscricaoInicial;
+		private $dataInscricaoFinal;
+		private $categoria; 
+		private $dataPremiacao; 
+		private $descricaoPremiacao;
+		private $tipoAvaliacao;
+		private $ativo;
+		private $projetoVencedor;	
+		
+		function __construct($id,$titulo,$descricao,$dataInscricaoInicial,$dataInscricaoFinal,$idCategoria,$dataPremiacao,
+		$descricaoPremiacao,$tipoAvaliacao,$ativo,$projetoVencedor) {
+			$this->$id= $id;
+            $this->$titulo=$titulo;
+            $this->$descricao=$descricao;
+            $this->$dataInscricaoInicial=$dataInscricaoInicial;
+            $this->$dataInscricaoFinal=$dataInscricaoFinal;
+            //$this->$categoria=new Categoria($idCategoria);
+            $this->$dataPremiacao=$dataPremiacao;
+            $this->$descricaoPremiacao=$descricaoPremiacao;
+            $this->$tipoAvaliacao=$tipoAvaliacao;
+            $this->$ativo=$ativo;
+            $this->$projetoVencedor=$projetoVencedor;
 		}
-		function getId(){
-			return $this->id;
-		}				
-		function getNome(){
-			return $this->nome;
+		/**
+		 * Get the value of id
+		 */ 
+		public function getId()
+		{
+				return $this->id;
 		}
-		function setNome($novo_nome){
-			$this->nome = $novo_nome;
-		}				
-		function getEmail(){
-			return $this->email;
+
+		/**
+		 * Set the value of id
+		 *
+		 * @return  self
+		 */ 
+		public function setId($id)
+		{
+				$this->id = $id;
 		}
-		function setEmail($novo_email){
-			$this->email = $novo_email;
+
+		/**
+		 * Get the value of titulo
+		 */ 
+		public function getTitulo()
+		{
+				return $this->titulo;
 		}
-		function getSenha(){
-			return $this->senha;
+
+		/**
+		 * Set the value of titulo
+		 *
+		 * @return  self
+		 */ 
+		public function setTitulo($titulo)
+		{
+				$this->titulo = $titulo;
+
+				return $this;
 		}
-		function setSenha($novo_senha){
-			$this->senha = $novo_senha;
-		}				
-		function getTipoUsuario(){
-			return $this->tipoUsuario;
-		}			
-		function getAtivo(){
-			return $this->ativo;
+
+		/**
+		 * Get the value of dataInscricaoInicial
+		 */ 
+		public function getDataInscricaoInicial()
+		{
+				return $this->dataInscricaoInicial;
 		}
-		function setAtivo($altera_ativo){
-			$this->ativo = $altera_ativo;
+
+		/**
+		 * Set the value of dataInscricaoInicial
+		 *
+		 * @return  self
+		 */ 
+		public function setDataInscricaoInicial($dataInscricaoInicial)
+		{
+				$this->dataInscricaoInicial = $dataInscricaoInicial;
+
+				return $this;
 		}
-		function getSiape(){
-			return $this->siape;
+
+		/**
+		 * Get the value of dataInscricaoFinal
+		 */ 
+		public function getDataInscricaoFinal()
+		{
+				return $this->dataInscricaoFinal;
 		}
-		function setSiape($novo_siape){
-			$this->siape = $novo_siape;
+
+		/**
+		 * Set the value of dataInscricaoFinal
+		 *
+		 * @return  self
+		 */ 
+		public function setDataInscricaoFinal($dataInscricaoFinal)
+		{
+				$this->dataInscricaoFinal = $dataInscricaoFinal;
+
+				return $this;
 		}
-		function getMatricula(){
-			return $this->matricula;
+
+		/**
+		 * Get the value of dataPremiacao
+		 */ 
+		public function getDataPremiacao()
+		{
+				return $this->dataPremiacao;
 		}
-		function setMatricula($novo_matricula){
-			$this->matricula = $novo_matricula;
-		}	
+
+		/**
+		 * Set the value of dataPremiacao
+		 *
+		 * @return  self
+		 */ 
+		public function setDataPremiacao($dataPremiacao)
+		{
+				$this->dataPremiacao = $dataPremiacao;
+
+				return $this;
+		}
+
+		/**
+		 * Get the value of descricaoPremiacao
+		 */ 
+		public function getDescricaoPremiacao()
+		{
+				return $this->descricaoPremiacao;
+		}
+
+		/**
+		 * Set the value of descricaoPremiacao
+		 *
+		 * @return  self
+		 */ 
+		public function setDescricaoPremiacao($descricaoPremiacao)
+		{
+				$this->descricaoPremiacao = $descricaoPremiacao;
+
+				return $this;
+		}
+
+		/**
+		 * Get the value of tipoAvaliacao
+		 */ 
+		public function getTipoAvaliacao()
+		{
+				return $this->tipoAvaliacao;
+		}
+
+		/**
+		 * Set the value of tipoAvaliacao
+		 *
+		 * @return  self
+		 */ 
+		public function setTipoAvaliacao($tipoAvaliacao)
+		{
+				$this->tipoAvaliacao = $tipoAvaliacao;
+
+				return $this;
+		}
+
+		/**
+		 * Get the value of ativo
+		 */ 
+		public function getAtivo()
+		{
+				return $this->ativo;
+		}
+
+		/**
+		 * Set the value of ativo
+		 *
+		 * @return  self
+		 */ 
+		public function setAtivo($ativo)
+		{
+				$this->ativo = $ativo;
+
+				return $this;
+		}
+
+		/**
+		 * Get the value of projetoVencedor
+		 */ 
+		public function getProjetoVencedor()
+		{
+				return $this->projetoVencedor;
+		}
+
+		/**
+		 * Set the value of projetoVencedor
+		 *
+		 * @return  self
+		 */ 
+		public function setProjetoVencedor($projetoVencedor)
+		{
+				$this->projetoVencedor = $projetoVencedor;
+
+				return $this;
+		}
+
+		/**
+		 * Get the value of categoria
+		 */ 
+		public function getCategoria()
+		{
+				return $this->categoria;
+		}
+
+		/**
+		 * Set the value of categoria
+		 *
+		 * @return  self
+		 */ 
+		public function setCategoria($categoria)
+		{
+				$this->categoria = $categoria;
+
+				return $this;
+		}
 	}
 ?>

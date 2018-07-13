@@ -81,7 +81,7 @@ else $usuario = $_SESSION['usuario'];
 				<tr>
 					<th>Ativo</th>
 					<th>Título</th>
-					<th>Período de Inscrição</th>
+					<!--<th>Período de Inscrição</th>-->
 					<th>Categoria</th>
 					<th>Premiação</th>
 	
@@ -93,11 +93,11 @@ else $usuario = $_SESSION['usuario'];
 					    for ($i=0; $i<count($concursos); $i++ ){
 							$concurso = $concursos[$i];
 							echo '<tr>';				
-							echo '<td>'.$concurso->getStatus().   '</td>';
+							echo '<td>'.($concurso->getAtivo()==1?'Ativo':'Desativado').   '</td>';
 							echo '<td>'.$concurso->getTitulo().   '</td>';
-							echo '<td>'.$concurso->getPeriodo().  '</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto
+							//echo '<td>'.$concurso->getPeriodo().  '</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto
 							echo '<td>'.$concurso->getCategoria().'</td>';
-							echo '<td>'.$concurso->getPremiacao().'</td>';
+							echo '<td>'.$concurso->getProjetoVencedor().'</td>';
 							echo "<td><a href='novoProjeto.php?id=".$projeto->getId()."'>Visualizar</a></td>";
 							echo '</tr>';
 						}

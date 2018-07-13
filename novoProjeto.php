@@ -315,7 +315,11 @@ else{
 					    				echo '<td>'.$comentario->getUsuario()->GetNome().'</td>'; //projeto é um objeto, get status é um metodo que retorna um objeto, get descriçao irá retornar a descrição deste objeto	
 										echo '</tr>';
 
-										if($usuario instanceof Professor || $usuario->getId() == $aluno1Id || $usuario->getId() == $aluno2Id || $usuario->getId() == $aluno3Id){										
+										if($usuario instanceof Professor 
+										|| $usuario->getId() == $projeto->GetCoordenador()->GetId() 
+										|| $usuario->getId() == $aluno1Id 
+										|| $usuario->getId() == $aluno2Id 
+										|| $usuario->getId() == $aluno3Id){										
 					    					echo '<tr>';				
 					    					echo '<td colspan=3><input type="text" name="comentario_'.$comentario->GetId().'" style="width: 100%; height: 5%; align:right"></td>';
 											echo '<td><input type="submit" name="responder_'.$comentario->GetId().'" value="Responder"</td>';
