@@ -42,7 +42,6 @@ else{
 		if(!empty($_POST)){
 			if(isset($_POST['adcionarComentario'])){
 				adicionarComentario();
-				exit;
 			}
 			else{
 			    if(!empty($_POST['titulo'])){$titulo=$_POST['titulo'];} else { erro("Campo titulo é obrigatório!");return;}
@@ -125,9 +124,6 @@ else{
 			    echo '<script>alert("Salvo com Sucesso.");location.href="novoProjeto.php?id='.$projeto->GetId().'"</script>';
 			}
 		}
-
-		
-
 	?>
 
 <html>
@@ -154,12 +150,17 @@ else{
 			}
 			document.addEventListener('DOMContentLoaded', function() {
 				<?php
-					if($projeto->getCategoria()->GetId()==1)
+				    if(!empty($projeto)){
+						if($projeto->getCategoria()->GetId()==1)
+							echo 'mudara();';
+						else if($projeto->getCategoria()->GetId()==2)
+							echo 'mudarb();';
+						else if($projeto->getCategoria()->GetId()==3)
+							echo 'mudarc();';
+				    }
+					else {
 						echo 'mudara();';
-					else if($projeto->getCategoria()->GetId()==2)
-						echo 'mudarb();';
-					else if($projeto->getCategoria()->GetId()==3)
-						echo 'mudarc();';
+					}
 					?>
 			}, false);
 			
@@ -177,15 +178,15 @@ else{
 					<br>Tecnologias Utilizadas: <br> <input type="text" name="tecUtilizadas" style="width: 100%; height: 5%" value="<?php if(!empty($projeto)) echo $projeto->getTecnologiasUtilizadas(); ?>"><br>
 					<br>Resumo: <br> <input type="text" name="resumo" style="width: 100%; height: 5%" value="<?php if(!empty($projeto)) echo $projeto->getResumo(); ?>"><br>
 					<br>Status:
-					<input type="radio" <?php if(!empty($projeto)) echo $projeto->getStatus()->GetId()==1?'checked':'';?> name="status" value="1">Inicial</input>
+					<input type="radio" <?php if(!empty($projeto)) echo $projeto->getStatus()->GetId()==1?'checked':''; else echo 'checked';?> name="status" value="1">Inicial</input>
 					<input type="radio" <?php if(!empty($projeto)) echo $projeto->getStatus()->GetId()==2?'checked':'';?> name="status" value="2">Em andamento</input>
 					<input type="radio" <?php if(!empty($projeto)) echo $projeto->getStatus()->GetId()==3?'checked':'';?> name="status" value="3">Concluído</input><br>
 					<br>Duração: <input type="text" name="duracao" value="<?php if(!empty($projeto)) echo $projeto->getDuracao(); ?>">
 					<br>
 					<br>Categoria: 
-                    <input type="radio" <?php if(!empty($projeto) && $projeto instanceof ProjetoInstitucional) echo 'checked'; else echo ''; ?> onclick="mudara();" name="categoria" value="institucional">Institucional
-                    <input type="radio" <?php if(!empty($projeto) && $projeto instanceof ProjetoMercadoDeTrabalho) echo 'checked'; else echo ''; ?> onclick="mudarb();" name="categoria" value="mercadoTrabalho"> Mercado de Trabalho
-                    <input type="radio" <?php if(!empty($projeto) && $projeto instanceof ProjetoComunidade) echo 'checked'; else echo ''; ?> onclick="mudarc();" name="categoria" value="comunidade"> Comunidade<br>
+                    <input type="radio" <?php if(!empty($projeto)) echo ($projeto instanceof ProjetoInstitucional)    ?'checked':''; else echo 'checked';?> onclick="mudara();" name="categoria" value="institucional">Institucional
+                    <input type="radio" <?php if(!empty($projeto)) echo ($projeto instanceof ProjetoMercadoDeTrabalho)?'checked':''; ?> onclick="mudarb();" name="categoria" value="mercadoTrabalho"> Mercado de Trabalho
+                    <input type="radio" <?php if(!empty($projeto)) echo ($projeto instanceof ProjetoComunidade)       ?'checked':''; ?> onclick="mudarc();" name="categoria" value="comunidade"> Comunidade<br>
 
 					
 					<span id="a">
@@ -203,68 +204,71 @@ else{
 					<br>
 					Público Alvo: <input type="text" name="publicoAlvo" style="width: 87%; height: 5%" value="<?php if(!empty($projeto) && $projeto instanceof ProjetoComunidade) echo $projeto->getPublicoAlvo(); ?>" > <br>
 					</span>
-					------------------------------------------------------------------------------------------------------------------------------------------------
-					<br>
-					<br>
-					Equipe do Projeto
-					<br>
-					<br>
-					Aluno 1:
-					<select name="equipeAluno1">
-						<option value="0">Selecione</option>
-					<?php
-						$alunoId =0;
-						if(count($equipe)>0){
-							$alunoId = $equipe[0]->GetId();
-						}
-						
-						for ($i=0; $i<count($alunos); $i++ ){
-							$aluno = $alunos[$i];
+					
+					<div <?php if(!Empty($projeto)){ echo 'style="display:block;"';} else {echo 'style="display:none;"';} ?>>
+						------------------------------------------------------------------------------------------------------------------------------------------------
+						<br>
+						<br>
+						Equipe do Projeto
+						<br>
+						<br>
+						Aluno 1:
+						<select name="equipeAluno1">
+							<option value="0">Selecione</option>
+						<?php
+							$alunoId =0;
+							if(count($equipe)>0){
+								$alunoId = $equipe[0]->GetId();
+							}
 							
-							echo '<option value="'.$aluno->getId().'" '.($aluno->getId()==$alunoId?'selected':'').'>'.$aluno->getNome().'</option>';
-						}
-					?>
-					</select>
-					Aluno 2:
-					<select name="equipeAluno2">
-						<option value="0">Selecione</option>
-					<?php
-						//$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
-						//$equipe = $projeto->getEquipe();
-						$alunoId =0;
-						if(count($equipe)>1){
-							$alunoId = $equipe[1]->GetId();
-						}
-						
-						for ($i=0; $i<count($alunos); $i++ ){
-							$aluno = $alunos[$i];
+							for ($i=0; $i<count($alunos); $i++ ){
+								$aluno = $alunos[$i];
+								
+								echo '<option value="'.$aluno->getId().'" '.($aluno->getId()==$alunoId?'selected':'').'>'.$aluno->getNome().'</option>';
+							}
+						?>
+						</select>
+						Aluno 2:
+						<select name="equipeAluno2">
+							<option value="0">Selecione</option>
+						<?php
+							//$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
+							//$equipe = $projeto->getEquipe();
+							$alunoId =0;
+							if(count($equipe)>1){
+								$alunoId = $equipe[1]->GetId();
+							}
 							
-							echo '<option value="'.$aluno->getId().'" '.($aluno->getId()==$alunoId?'selected':'').'>'.$aluno->getNome().'</option>';
-						}
-					?>
-					</select>
-					Aluno 3:
-					<select name="equipeAluno3">
-						<option value="0">Selecione</option>
-					<?php
-						//$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
-						//$equipe = $projeto->getEquipe();
-						$alunoId =0;
-						if(count($equipe)>2){
-							$alunoId = $equipe[2]->GetId();
-						}
-						
-						for ($i=0; $i<count($alunos); $i++ ){
-							$aluno = $alunos[$i];
+							for ($i=0; $i<count($alunos); $i++ ){
+								$aluno = $alunos[$i];
+								
+								echo '<option value="'.$aluno->getId().'" '.($aluno->getId()==$alunoId?'selected':'').'>'.$aluno->getNome().'</option>';
+							}
+						?>
+						</select>
+						Aluno 3:
+						<select name="equipeAluno3">
+							<option value="0">Selecione</option>
+						<?php
+							//$alunos = Aluno::getAlunosMenosCoordenador($projeto->getCoordenador()->getId());
+							//$equipe = $projeto->getEquipe();
+							$alunoId =0;
+							if(count($equipe)>2){
+								$alunoId = $equipe[2]->GetId();
+							}
 							
-							echo '<option value="'.$aluno->getId().'" '.($aluno->getId()==$alunoId?'selected':'').'>'.$aluno->getNome().'</option>';
-						}
-					?>
-					</select>
+							for ($i=0; $i<count($alunos); $i++ ){
+								$aluno = $alunos[$i];
+								
+								echo '<option value="'.$aluno->getId().'" '.($aluno->getId()==$alunoId?'selected':'').'>'.$aluno->getNome().'</option>';
+							}
+						?>
+						</select>
+					</div>
 					<br>
 					<br>
-					------------------------------------------------------------------------------------------------------------------------------------------------
-					<div>
+					<div <?php if(!Empty($projeto)){ echo 'style="display:block;"';} else {echo 'style="display:none;"';} ?>>
+					    ------------------------------------------------------------------------------------------------------------------------------------------------
 					    <br/>Comentários:
 					    <input type="text" name="comentario" style="width: 88%; height: 5%; align:right"> 
 					    <br/>
