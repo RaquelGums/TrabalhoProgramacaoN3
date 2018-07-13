@@ -11,7 +11,7 @@
 		}	
 		
 		function salvar(){		
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
 			
 			if ($this->getId()==0){
 			    $r=$db->prepare("INSERT INTO usuario(nome, email, senha, tipo, ativo, matricula ) 
@@ -35,7 +35,7 @@
 		}
 		
 		public static function recuperarSenha ($email, $matricula){
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
 			//  faz uma pesquisa na tabela de usuarios
 			$r=$db->prepare("SELECT id FROM usuario WHERE email=:email and matricula=:matricula and tipo=1"); //prepara o comando 
 			$r->execute(array(':email'=>$email,':matricula'=>$matricula)); //substitui as variaveis (:) do comando e executa
@@ -47,19 +47,19 @@
 					$numero = mt_rand(1, 9);
 					$novaSenha = $novaSenha.$numero;
 				}
-				$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
+				$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
 				$r=$db->prepare("UPDATE usuario SET senha=:senha where id=:id"); 
 				$r->execute(array(':senha'=>$novaSenha,
 								':id'=>$linhas[0][0]));			
 				return "Nova senha:".$novaSenha;
 			}
 			else {
-				return "Não foram encontratos alunos com os dados preenchidos.";
+				return "Não foram encontratos alunos com os dados informados.";
 			}
 		}
 				
 		public static function getAlunosMenosCoordenador ($id){
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','');
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root');
 			$r=$db->prepare("SELECT id, nome FROM usuario WHERE id!=:id and ativo=1 and Tipo=1");
 			$r->execute(array(':id'=>$id));
 			$linhas=$r->fetchAll(PDO::FETCH_NUM);

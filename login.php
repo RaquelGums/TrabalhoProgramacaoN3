@@ -4,17 +4,18 @@ include_once 'aluno.class.php';
 include_once 'professor.class.php';
 include_once 'coordenador.class.php';
 session_start(); 
-if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
+if(!empty($_SESSION['usuario'])){headeer('location:telaInicial.php');}
 ?>
 <html>
 	<head>
+		<title>Projetos do ADS</title>
 		<link rel="stylesheet" type="text/css" href="css/estilo.css"/>		
 	</head>
 	<body>
 	    <form id="areaB" method="post">
 			<fieldset>
 				<legend style="text-align:left;">Login do Usuário</legend>
-				Email: <input type="text" name="email"><br>
+				Email: <input type="email" name="email"><br>
 				<br>
 				Senha: <input type="password" name="senha"><br>
 				<br>
@@ -31,7 +32,7 @@ if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 			
 						
 			// linhas responsáveis em se conectar com o bando de dados.
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
 			//$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			//  faz uma pesquisa na tabela de usuarios
 			$r=$db->prepare("SELECT id, nome, tipo, matricula, siape FROM usuario WHERE email=:email and senha=:senha");
@@ -57,7 +58,7 @@ if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 				header('location:telaInicial.php');
 			}
 			else{
-		        echo '<script>alert("Falha no login, tente novamente!");</script>';
+		        echo '<script>alert("Dados incorretos, tente novamente!");</script>';
     			unset ($_SESSION['email']);
 				unset ($_SESSION['senha']);
 				//header('location:login.php');

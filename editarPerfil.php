@@ -23,10 +23,10 @@ else $usuario = $_SESSION['usuario'];
 				<br/>				
 				<?php 
 				    if ($usuario instanceof Aluno){ //usuario é uma instancia de Aluno
-						echo 'Numero da Matrícula: <input type="text" name="matri" value="'.$usuario->getMatricula().'">';				
+						echo 'Numero da Matrícula: <input type="num"  min="111111111111" max="999999999999" name="matri" value="'.$usuario->getMatricula().'">';				
 					}
 					else if ($usuario instanceof Professor){
-						echo 'SIAPE: <input type="text" name="siape" value="'.$usuario->getSiape().'">';
+						echo 'SIAPE: <input type="num"  min="11111111" max="99999999"  name="siape" value="'.$usuario->getSiape().'">';
 					}
 				?>
 				<br>

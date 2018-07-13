@@ -15,6 +15,36 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 			{
 				document.getElementById("a").style.display = "block"; 
 			}
+
+			function ComparaDatas()
+			{
+				var data1 = document.getElementById("data1").value;
+				var data2 = document.getElementById("data2").value;
+				var data3 = document.getElementById("data3").value;
+				var data4 = document.getElementById("data4").value;
+				var nova_data1 = parseInt(data1.split("/")[2].toString() + data1.split("/")[1].toString() + data1.split("/")[0].toString());
+				var nova_data2 = parseInt(data2.split("/")[2].toString() + data2.split("/")[1].toString() + data2.split("/")[0].toString());
+				var nova_data3 = parseInt(data3.split("/")[2].toString() + data3.split("/")[1].toString() + data3.split("/")[0].toString());
+				var nova_data4 = parseInt(data4.split("/")[2].toString() + data4.split("/")[1].toString() + data4.split("/")[0].toString());
+				 if (nova_data2 > nova_data1) 
+				 {
+					 alert("A data 2 é maior que a data 1.");
+				 }
+ 				else if (nova_data1 == nova_data2) 
+				 {
+					 alert("As datas são iguais.");
+				 }
+
+				 if (nova_data3 > nova_data4) 
+				 {
+					 alert("A data 3 é maior que a data 4.");
+				 }
+ 				else if (nova_data3 == nova_data4) 
+				 {
+					 alert("As datas são iguais.");
+				 }
+			}
+
 		</script>
 	</head>
 	<body>
@@ -70,7 +100,7 @@ if(empty($_SESSION['usuario'])){header('location:login.php');}
 		
 
 		 ///-------------------------------teste
-			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root',''); 
+			$db = new PDO('mysql:host=localhost;dbname=db.ifrs;charset=utf8','root','root'); 
 			$r=$db->prepare("INSERT INTO concurso(titulo, descricao, dataInscricaoInicial, dataInscricaoFinal, idCategoria, dataPremiacao, descricaoPremiacao, tipoAvaliacao, ativo)
 							VALUES  (:titulo, :descricao, :dataInscricaoInicial, :dataInscricaoFinal, :idCategoria, :dataPremiacao, :descricaoPremiacao, :tipoAvaliacao, :ativo)"); 
 		

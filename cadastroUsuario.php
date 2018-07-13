@@ -37,8 +37,8 @@ if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 				<input onclick="mudarp();" type="radio" name="tipoUsuario" value="2"> Professor
 				<br>
 				<br>
-				<div id="a">Numero da Matrícula:<br><input type="text" name="matri"></div>
-				<div style="display:none;" id="b"> SIAPE:  <br> <input type="text" name="siape"></div>
+				<div id="a">Numero da Matrícula:<br><input type="number" min="111111111111" max="999999999999" name="matri"></div>
+				<div style="display:none;" id="b"> SIAPE:  <br> <input type="number" min="11111111" max="99999999"  name="siape"></div>
 				<br>
 				<br><input type="submit" value="Cadastrar">
 				<input type="button" value="Cancelar" onClick='location.href="login.php"'>

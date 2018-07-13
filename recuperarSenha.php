@@ -9,6 +9,7 @@ if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 	<head>
 	<link rel="stylesheet" type="text/css" href="css/estilo.css"><title>Projetos do ADS</title>
 		<script>
+
 			function mudarp() ///trocar as caixas de professor e aluno
 			{
     			document.getElementById("a").style.display = "none"; 
@@ -29,14 +30,14 @@ if(!empty($_SESSION['usuario'])){header('location:telaInicial.php');}
 		<form id="areaB" method="post">
 			<fieldset>
 				<legend style="text-align:left;">Recuperação de Senha</legend>
-				Email: <input type="text" name="email"><br>
+				Email: <input type="email" name="email"><br>
 				<br>
 				<input onclick="mudara();" checked="true" type="radio" name="tipoUsuario" value="1">Aluno
 				<input onclick="mudarp();" type="radio" name="tipoUsuario" value="2"> Professor
 				<br>
 				<br>
-				<div id="a">Numero da Matrícula:<br><input type="text" name="matricula"></div>
-				<div style="display:none;" id="b"> SIAPE:  <br> <input type="text" name="siape"></div>
+				<div id="a">Numero da Matrícula:<br><input type="number" name="matricula" min="111111111111" max="999999999999" ></div>
+				<div style="display:none;" id="b"> SIAPE:  <br> <input type="number" name="siape"  min="11111111" max="99999999" ></div>
 				<br>
 				<br><input type="submit" value="Recuperar">
 				<input type="button" value="cancelar" onClick='location.href="login.php"'>
